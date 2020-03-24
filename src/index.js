@@ -14,7 +14,7 @@ import { initSequalize } from '@database/sequelize';
 import { setupInufraProvider } from './config/ethers';
 
 /* --- Application Routes --- */
-import { initInfuraQueryRoutes } from './routes';
+import { initInfuraQueryRoutes, initCacheRoutes } from './routes';
 
 const provider = setupInufraProvider();
 /* ----------------------- */
@@ -34,9 +34,12 @@ httpServer.listen({ port }, () => {
   console.log(`Apollo Server on http://localhost:${port}/graphql`);
 });
 
-/* --- Application API --- */
-
 /* --- Server Middleware  --- */
 initServer(app, httpServer);
+
+/* --- Application Routes  --- */
 initInfuraQueryRoutes(app);
+initCacheRoutes(app);
+
+/* --- Sequelize Config --- */
 initSequalize();

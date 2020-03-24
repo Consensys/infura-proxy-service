@@ -9,113 +9,68 @@ import models from '@models';
 /* ============================================== */
 
 /**
- * @function ethLatestBlock
+ * @function cacheEthTransaction
  * @description
  * @param {*} req
  * @param {*} res
  */
-export const ethLatestBlock = async (req, res) => {
-  let data;
-  const provider = req.app.get('provider');
-  try {
-    data = await provider.getBlockNumber();
-    return res.send({ data });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-/**
- * @function getGasEstimate
- * @description
- * @param {*} req
- * @param {*} res
- */
-export const getGasEstimate = async (req, res) => {
-  let data;
-  const provider = req.app.get('provider');
-  try {
-    data = await provider.getGasPrice();
-    return res.send({ data });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-/**
- * @function getEthTransaction
- * @description
- * @param {*} req
- * @param {*} res
- */
-export const getEthTransaction = async (req, res) => {
+export const cacheEthTransaction = async (req, res) => {
   let data;
   const provider = req.app.get('provider');
   const hash = req.params.hash;
+
   try {
-    data = await provider.getTransaction(hash);
+    // Search for transaction in the database using the
+    // the hash as the primary identifier.
+    data = await models.Transaction.find({
+      where: {
+        id: hash,
+      },
+    });
 
-    models.Transaction.create({ id: hash, ...data });
-
-    return res.send({ data });
+    // IF the transaction IS NOT available in the database
+    // request the transaction and CREATE record in the database.
+    if (!data) {
+      data = await provider.getTransaction(hash);
+      models.Transaction.create({ id: hash, ...data });
+      return res.send({ status: 'infura', data });
+    } else {
+      return res.send({ status: 'cache', data });
+    }
   } catch (error) {
     console.log(error);
   }
 };
 
 /**
- * @function getEthTransactionReceipt
+ * @function cacheEthReceipt
  * @description
  * @param {*} req
  * @param {*} res
  */
-export const getEthTransactionReceipt = async (req, res) => {
+export const cacheEthReceipt = async (req, res) => {
   let data;
   const provider = req.app.get('provider');
   const hash = req.params.hash;
-  try {
-    data = await provider.getTransactionReceipt(hash);
-    return res.send({ data });
-  } catch (error) {
-    console.log(error);
-  }
-};
 
-/* ============================================== */
-// Ethereum Name Service
-/* ============================================== */
-
-/**
- * @function ensResolveAddress
- * @description
- * @param {*} req
- * @param {*} res
- */
-export const ensResolveAddress = async (req, res) => {
-  let data;
-  const provider = req.app.get('provider');
-  const name = req.params.name;
   try {
-    data = await provider.resolveName(name);
-    return res.send({ data });
-  } catch (error) {
-    console.log(error);
-  }
-};
+    // Search for receipt in the database using the
+    // the hash as the primary identifier.
+    data = await models.Receipt.find({
+      where: {
+        id: hash,
+      },
+    });
 
-/**
- * @function ensLookupAddress
- * @description
- * @param {*} req
- * @param {*} res
- */
-export const ensLookupAddress = async (req, res) => {
-  let data;
-  const provider = req.app.get('provider');
-  const address = req.params.address;
-  try {
-    data = await provider.lookupAddress(address);
-    return res.send({ data });
+    // IF the receipt IS NOT available in the database
+    // request the receipt and CREATE record in the database.
+    if (!data) {
+      data = await provider.getReceipt(hash);
+      models.Receipt.create({ id: hash, ...data });
+      return res.send({ status: 'infura', data });
+    } else {
+      return res.send({ status: 'cache', data });
+    }
   } catch (error) {
     console.log(error);
   }

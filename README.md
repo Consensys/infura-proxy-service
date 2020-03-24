@@ -14,6 +14,10 @@ The Infura Proxy Service acts as a caching layer between `User <> Application (C
 
 ## Routes
 
+The application is divded into 2 primary application routes: infura and query.
+
+### Infura
+
 - /block
 - /gas
 - /transaction/:hash

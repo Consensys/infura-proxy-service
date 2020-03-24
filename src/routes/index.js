@@ -6,7 +6,9 @@ import {
   getEthTransactionReceipt,
   ensResolveAddress,
   ensLookupAddress,
-} from '@api/query';
+} from '@api/infura';
+
+import { cacheEthTransaction } from '@api/query';
 
 /* ----------------------- */
 // Infura : Query : Routes
@@ -18,4 +20,8 @@ export const initInfuraQueryRoutes = app => {
   app.use(`/receipt/:hash`, getEthTransactionReceipt);
   app.use(`/ens/resolve/:name`, ensResolveAddress);
   app.use(`/ens/lookup/:name`, ensLookupAddress);
+};
+
+export const initCacheRoutes = app => {
+  app.use(`/cache/transaction/:hash`, cacheEthTransaction);
 };
