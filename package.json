@@ -1,0 +1,60 @@
+{
+  "name": "infura-proxy-service",
+  "version": "0.0.0",
+  "description": "An application caching layer using Infur service provider.",
+  "main": "index.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js",
+    "test:run-server": "TEST_DATABASE=test npm start",
+    "test:execute-test": "mocha --require @babel/register 'src/**/*.spec.js'",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "keywords": [],
+  "author": "Kames Geraghty <info@horizin.io> (https://www.horizin.io)",
+  "license": "MIT",
+  "_moduleAliases": {
+    "@root": ".",
+    "@api": "src/api",
+    "@lib": "src/lib",
+    "@database": "./src/lib/database",
+    "@errors": "./src/lib/errors",
+    "@models": "src/lib/graphql/models",
+    "@loaders": "src/lib/graphql/loaders",
+    "@resolvers": "src/lib/graphql/resolvers",
+    "@schema": "src/lib/graphql/schema",
+    "@subscription": "src/lib/graphql/subscription"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/register": "^7.0.0",
+    "axios": "^0.18.0",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "module-alias": "^2.2.2",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.7"
+  },
+  "dependencies": {
+    "@octokit/rest": "^17.0.0",
+    "apollo-server": "^2.2.3",
+    "apollo-server-express": "^2.2.3",
+    "bcrypt": "^3.0.2",
+    "cors": "^2.8.5",
+    "dataloader": "^1.4.0",
+    "dotenv": "^6.1.0",
+    "ethers": "^4.0.46",
+    "express": "^4.16.4",
+    "graphql": "^14.0.2",
+    "graphql-iso-date": "^3.6.1",
+    "graphql-resolvers": "^0.2.2",
+    "jsonwebtoken": "^8.4.0",
+    "pg": "^7.6.1",
+    "sequelize": "^4.41.2",
+    "uuid": "^3.3.2"
+  }
+}
