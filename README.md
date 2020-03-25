@@ -10,6 +10,41 @@ Blockchain hold large amounts of data. Service providers like Infura help develo
 
 The Infura Proxy Service acts as a caching layer between Frontend Application and Infura Service endpoints.
 
+## Install:
+
+```
+[Docker](https://www.docker.com/)
+```
+
+```
+[Node v10.X](https://nodejs.org/en/)
+```
+
+```
+[Npm](https://docs.npmjs.com/getting-started/installing-node)
+[Yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
+```
+
+```
+$ git clone https://github.com/kamescg/infura-proxy-service docker-express-postgresql-react-starter
+$ cd infura-proxy-service
+$ npm install || yarn
+```
+
+## Usage
+
+START
+
+```
+$ docker-compose up
+```
+
+STOP
+
+```
+$ docker-compose down
+```
+
 # Overview
 
 The Infura Proxy Service provides a data caching layer that between frontend application and Infura endpoints. By routing requests via a proxy service developers/businesses can better manage costs and even also gain insights into what data is actually being requested by users. Often times the same blockchain data is requested 10's, 100's and likely 1,000's of times before it's "stale" or no longer important state.
@@ -50,3 +85,8 @@ The `cache` route(s) are similar to several of the `infura` routes, but instead 
 
 - /cache/transaction/:hash
 - /cache/receipt/:hash
+
+# Troubleshoot
+
+Scan for Existing Postgres Containers
+`lsof -n -i:5432 | grep LISTEN`
