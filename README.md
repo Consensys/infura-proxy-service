@@ -12,13 +12,30 @@ The Infura Proxy Service acts as a caching layer between Frontend Application an
 
 # Overview
 
-The Infura Proxy Service provides a data caching layer between frontend application and Infura endpoints, because often times the same data is requested 10's, 100's and likely 1,000's of times from different users.
+The Infura Proxy Service provides a data caching layer that between frontend application and Infura endpoints. By routing requests via a proxy service developers/businesses can better manage costs and even also gain insights into what data is actually being requested by users. Often times the same blockchain data is requested 10's, 100's and likely 1,000's of times before it's "stale" or no longer important state.
 
-By routing requests via a proxy service application's can better manage costs and also gain insights into what data is actually being requested by users.
+The `infura-proxy-service` is a basic implementation. Demonstrating how to cache `transaction` and `receipt` requests made from the a frontend application to a blockchain node service provider - in this instance the node provider is Infura.
+
+## Models
+
+The `infura-proxy-service` repo includes several models for storing common blockchain data.
+
+- Transaction
+- Receipt
+- ENS
+
+Each model matches the data structure of succesful JSON-RPC data calls associated with `"GET_TRANSACTION"`, `"GET_RECEIPT"`
 
 ## Routes
 
-The application is divded into 2 primary application routes: infura and query.
+The server is divded into 2 primary application routes:
+
+- infura
+- cache
+
+The `infura` route(s) provide a "direct line" to the Inufra API endpoints. The routes exists primarily for demonstration purposes, but it's also conceivable an application might want to limit data calls to authenicated users. In other words, additional middleware could be added to the `express` server routes to limit access to the Infura endpoints.
+
+The `cache` route(s) are similar to several of the `infura` routes, but instead of directly calling the Infura API endpoints, the database is first queried for the relevant data (transactions and transaction receipts). If the database returns `null` then an additional request is dispatched to Infura services to retrieve the requested blockchain data. If Infura returns the data, it's passed back to the requesting application and also stored in the caching layer (postgres) for future requests.
 
 ### Infura
 
