@@ -41,7 +41,7 @@ const transaction = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     data: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     r: {
       type: DataTypes.STRING,

@@ -43,7 +43,7 @@ export const initServer = (app, httpServer) => {
       }
 
       if (req) {
-        const me = await getMe(req);
+        const me = true;
         return {
           models,
           me,

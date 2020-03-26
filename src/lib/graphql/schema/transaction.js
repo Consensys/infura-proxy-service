@@ -5,7 +5,7 @@ export default gql`
   # Extend : Query
   # ---------------------------
   extend type Query {
-    transactionList: [Transaction!]
+    transactions(limit: Int, page: Int): [Transaction]
     transaction(hash: ID!): Transaction
   }
 
@@ -14,62 +14,50 @@ export default gql`
   # ---------------------------
   type Transaction {
     id: ID!
-    username: String!
-    accounts: [Account]
-    name: Name
-    contact: Contact
-    job: Job
-    location: Location
+    hash: String!
+    blockHash: String!
+    blockNumber: Int!
+    transactionIndex: Int!
+    confirmations: Int!
+    from: String!
+    to: String!
+    data: String!
+    gasPrice: BigNumber!
+    gasLimit: BigNumber!
+    value: BigNumber!
+    nonce: Int!
+    r: String!
+    s: String!
+    v: Int!
+    creates: String
+    raw: String
+    networkId: Int!
+    chainId: Int!
   }
 
   # ---------------------------
   # Account : Transaction : Level 2
   # ---------------------------
-  type Account {
-    platform: String
-    username: String
-  }
-
-  # ---------------------------
-  # Name : Transaction : Level 2
-  # ---------------------------
-  type Name {
-    nameDisplay: String
-    nameFirst: String
-    nameLast: String
-  }
-
-  # ---------------------------
-  # Contact : Transaction : Level 2
-  # ---------------------------
-  type Contact {
-    email: String
-    phone: String
-  }
-
-  # ---------------------------
-  # Job : Transaction : Level 2
-  # ---------------------------
-  type Job {
-    employer: String
-    role: String
-  }
-
-  # ---------------------------
-  # Location : Transaction : Level 2
-  # ---------------------------
-  type Location {
-    city: String
-    state: String
+  type BigNumber {
+    _hex: String
   }
 
   # ---------------------------
   # Extend : Mutation
   # ---------------------------
   extend type Mutation {
-    createTransaction(username: String!): Transaction!
-
-    updateTransaction(username: String!): Transaction!
+    createTransaction(id: ID!): Transaction!
     deleteTransaction(id: ID!): Boolean!
+  }
+
+  # ---------------------------
+  # Extend : Subscription
+  # ---------------------------
+  extend type Subscription {
+    transactionCreated: TransactionCreated!
+  }
+
+  type TransactionCreated {
+    transaction: Transaction!
   }
 `;

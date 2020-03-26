@@ -3,7 +3,7 @@ import axios from 'axios';
 
 /* --- Local --- */
 import models from '@models';
-
+import pubsub, { EVENTS } from '@lib/graphql/subscription';
 /* ============================================== */
 // Core : Ethereum
 /* ============================================== */
@@ -14,6 +14,7 @@ import models from '@models';
  * @param {*} req
  * @param {*} res
  */
+
 export const cacheEthTransaction = async (req, res) => {
   let data;
   const provider = req.app.get('provider');
@@ -33,6 +34,9 @@ export const cacheEthTransaction = async (req, res) => {
     if (!data) {
       data = await provider.getTransaction(hash);
       models.Transaction.create({ id: hash, ...data });
+      pubsub.publish(EVENTS.TRANSACTION.CREATED, {
+        transactionCreated: { transaction: data },
+      });
       return res.send({ status: 'infura', data });
     } else {
       return res.send({ status: 'cache', data });
@@ -67,6 +71,11 @@ export const cacheEthReceipt = async (req, res) => {
     if (!data) {
       data = await provider.getReceipt(hash);
       models.Receipt.create({ id: hash, ...data });
+
+      pubsub.publish(EVENTS.TRANSACTION.CREATED, {
+        transactionCreated: data,
+      });
+
       return res.send({ status: 'infura', data });
     } else {
       return res.send({ status: 'cache', data });

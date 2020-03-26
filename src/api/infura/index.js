@@ -3,7 +3,7 @@ import axios from 'axios';
 
 /* --- Local --- */
 import models from '@models';
-
+import pubsub, { EVENTS } from '@lib/graphql/subscription';
 /* ============================================== */
 // Core : Ethereum
 /* ============================================== */
