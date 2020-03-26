@@ -4,3 +4,5 @@ logfile
 
 pgdata/
 node_modules/
+
+package-lock.json
