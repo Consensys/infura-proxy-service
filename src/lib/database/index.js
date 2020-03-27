@@ -18,6 +18,7 @@ if (process.env.DATABASE_URL) {
       define: {
         freezeTableName: true, //prevent sequelize from pluralizing table names
       },
+      // logging: false // prevent SQL logging to console
     }
   );
 }

@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 import eventModeller from './eventModeller';
 import { registerEventModel, getEventModel } from "./registry"
+import { createEventListener } from "./listener"
 import fs from 'fs';
 import path from 'path';
 
@@ -45,7 +46,7 @@ export const initContract = async (data) => {
 export const initEvents = async (provider) => {
     for (let i = 0; i < contractsABI.length; i++) {
         const cData = contractsABI[i];
-        let contract = parseContractJSON(provider, cData)
+        let contract = await parseContractJSON(provider, cData)
         for (let i = 0; i < cData.abi.length; i++) {
             const abiField = cData.abi[i];
             if (abiField.type === "event") {
@@ -55,19 +56,22 @@ export const initEvents = async (provider) => {
                     const event = events[j];
                     m.create(event)
                 }
+                createEventListener(contract, abiField.name, abiField.inputs, m)
             }
         }
     }
 }
 
 
-const parseContractJSON = (provider, json) => {
-    const contract = new ethers.Contract(json.networks[1].address, json.abi, provider)
+const parseContractJSON = async (provider, json) => {
+    let network = await provider.getNetwork()
+    let chainID = network.chainId
+    const contract = new ethers.Contract(json.networks[chainID].address, json.abi, provider)
     return contract
 }
 
 
-const fromBlockLimit = 9747906 //arbitrary @TODO
+const fromBlockLimit = process.env.EVENT_FROM_BLOCK || 0
 const getDecodedEvents = async (contract, eventBareName, inputs) => {
     let eventArray = await contract.queryFilter(eventBareName, fromBlockLimit)
     let decoded = []

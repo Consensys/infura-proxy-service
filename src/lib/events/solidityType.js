@@ -34,6 +34,8 @@ export const convertSolidityType = (typeName) => {
             return Sequelize.JSONB
         case "int256":
             return Sequelize.JSONB
+        case "address[]":
+            return Sequelize.JSONB
         default:
             return Sequelize.STRING
     }
