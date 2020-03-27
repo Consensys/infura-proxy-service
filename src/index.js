@@ -48,8 +48,7 @@ httpServer.listen({ port }, () => {
   initSequalize();
 
   /* --- Contracts Config --- */
-  await initContracts(process.env.CONTRACT_DIR)
+  await initContracts(process.env.CONTRACT_DIR);
 
-  await initEvents(provider)
-
-})()
+  await initEvents(provider);
+})();

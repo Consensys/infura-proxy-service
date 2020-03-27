@@ -90,8 +90,6 @@ In addition to the core (_Block, Transaction, Receipt, ENS_) database models, sm
 
 Simplifying the process for creating a `cahcing` servie for specific smart contracts.
 
-Add smart contract.
-
 ## Routes
 
 The server is includes 3 core application routes:
