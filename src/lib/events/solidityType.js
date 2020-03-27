@@ -40,3 +40,7 @@ export const convertSolidityType = (typeName) => {
             return Sequelize.STRING
     }
 }
+
+export const dbObjectToEthers = (typeName, object) => {
+
+}
