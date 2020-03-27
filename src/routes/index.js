@@ -10,6 +10,9 @@ import {
 
 import { cacheEthTransaction } from '@api/query';
 
+import { getEvent, listEvents, eventTester } from '@api/event';
+
+import { newContract } from '@api/contract'
 /* ----------------------- */
 // Infura : Query : Routes
 /* ----------------------- */
@@ -25,3 +28,14 @@ export const initInfuraQueryRoutes = app => {
 export const initCacheRoutes = app => {
   app.use(`/cache/transaction/:hash`, cacheEthTransaction);
 };
+
+export const initEventRoutes = app => {
+  app.use(`/event/:eventName`, getEvent);
+  app.use(`/events`, listEvents)
+  app.use(`/testevent/:eventName`, eventTester)
+};
+
+
+export const initContractRoutes = app => {
+  app.use(`/contract`, newContract)
+}

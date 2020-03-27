@@ -16,7 +16,7 @@ import { initContracts, initEvents } from '@events/contracts';
 import { setupInufraProvider } from './config/ethers';
 
 /* --- Application Routes --- */
-import { initInfuraQueryRoutes, initCacheRoutes } from './routes';
+import { initInfuraQueryRoutes, initCacheRoutes, initEventRoutes } from './routes';
 
 const provider = setupInufraProvider();
 /* ----------------------- */
@@ -43,7 +43,8 @@ httpServer.listen({ port }, () => {
   /* --- Application Routes  --- */
   initInfuraQueryRoutes(app);
   initCacheRoutes(app);
-
+  initEventRoutes(app)
+  
   /* --- Sequelize Config --- */
   initSequalize();
 
