@@ -4,6 +4,7 @@ const models = {
   // Application
   User: sequelize.import('./users'),
   // Ethereum
+  Block: sequelize.import('./block'),
   Transaction: sequelize.import('./transaction'),
   Receipt: sequelize.import('./receipt'),
   ENS: sequelize.import('./ens'),
