@@ -45,6 +45,30 @@ STOP
 $ docker-compose down
 ```
 
+Docker will initialize 2 services:
+
+- PostgreSQL Database
+- pgAdmin (PostgreSQL Tool)
+
+The services will be initialized using parameters included in the .env file.
+
+- PostgreSQL: `http://localhost:3131/
+  - username: `infura`
+  - password: `infura`
+- pgAdmin: http://127.0.0.1:5050/
+  - username: `infura`
+  - password: `infura`
+
+The pgAdmin dashboard requires authentication with PostgreSQL Database.
+
+Click `Add New Server` and enter the following details
+
+- Name: `infura` // Recommended Name
+- Host name/Address: `postgres`
+- Port: `5432`
+- username: `infura`
+- password: `infura`
+
 # Overview
 
 The Infura Proxy Service provides a data caching layer that between frontend application and Infura endpoints. By routing requests via a proxy service developers/businesses can better manage costs and even also gain insights into what data is actually being requested by users. Often times the same blockchain data is requested 10's, 100's and likely 1,000's of times before it's "stale" or no longer important state.
@@ -53,26 +77,39 @@ The `infura-proxy-service` is a basic implementation. Demonstrating how to cache
 
 ## Models
 
-The `infura-proxy-service` repo includes several models for storing common blockchain data.
+The `infura-proxy-service` repo includes several core models for storing common blockchain data.
 
+- Block
 - Transaction
 - Receipt
 - ENS
 
 Each model matches the data structure of succesful JSON-RPC data calls associated with `"GET_TRANSACTION"`, `"GET_RECEIPT"`
 
+In addition to the core (_Block, Transaction, Receipt, ENS_) database models, smart contact specific database models are created when the server is initialized. By automatically generating models using smart contract artifacts (ABI JSON files) developers can avoid manually creating new Postgres database models for new/existing smart contracts.
+
+Simplifying the process for creating a `cahcing` servie for specific smart contracts.
+
+Add smart contract.
+
 ## Routes
 
-The server is divded into 2 primary application routes:
+The server is includes 3 core application routes:
 
+- events
 - infura
 - cache
 
-The `infura` route(s) provide a "direct line" to the Inufra API endpoints. The routes exists primarily for demonstration purposes, but it's also conceivable an application might want to limit data calls to authenicated users. In other words, additional middleware could be added to the `express` server routes to limit access to the Infura endpoints.
+### Events
 
-The `cache` route(s) are similar to several of the `infura` routes, but instead of directly calling the Infura API endpoints, the database is first queried for the relevant data (transactions and transaction receipts). If the database returns `null` then an additional request is dispatched to Infura services to retrieve the requested blockchain data. If Infura returns the data, it's passed back to the requesting application and also stored in the caching layer (postgres) for future requests.
+The `events` route(s) is a static route, but outputs are determined by the smart contracts provided at server runtime.
+
+- /events
+- /event/[INSERT_EVENT_NAME]
 
 ### Infura
+
+The `infura` route(s) provide a "direct line" to the Inufra API endpoints. The routes exists primarily for demonstration purposes, but it's also conceivable an application might want to limit data calls to authenicated users. In other words, additional middleware could be added to the `express` server routes to limit access to the Infura endpoints.
 
 - /block
 - /gas
@@ -82,6 +119,8 @@ The `cache` route(s) are similar to several of the `infura` routes, but instead 
 - /ens/lookup/:address
 
 ### Cache
+
+The `cache` route(s) are similar to several of the `infura` routes, but instead of directly calling the Infura API endpoints, the database is first queried for the relevant data (transactions and transaction receipts). If the database returns `null` then an additional request is dispatched to Infura services to retrieve the requested blockchain data. If Infura returns the data, it's passed back to the requesting application and also stored in the caching layer (postgres) for future requests.
 
 - /cache/transaction/:hash
 - /cache/receipt/:hash
