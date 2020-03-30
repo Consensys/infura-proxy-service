@@ -71,9 +71,9 @@ Click `Add New Server` and enter the following details
 
 # Overview
 
-The Infura Proxy Service provides a data caching layer that between frontend application and Infura endpoints. By routing requests via a proxy service developers/businesses can better manage costs and even also gain insights into what data is actually being requested by users. Often times the same blockchain data is requested 10's, 100's and likely 1,000's of times before it's "stale" or no longer important state.
+The Infura Proxy Service provides a data caching layer that lives between a frontend application and Infura endpoints. By routing requests via a proxy service developers/businesses can better manage costs and even also gain insights into what data is actually being requested by users. Often times the same blockchain data is requested 10's, 100's and likely 1,000's of times before it's "stale" or no longer important state.
 
-The `infura-proxy-service` is a basic implementation. Demonstrating how to cache `transaction` and `receipt` requests made from the a frontend application to a blockchain node service provider - in this instance the node provider is Infura.
+The `infura-proxy-service` is a basic implementation which demonstrates how to cache `transaction` and `receipt` requests made from a frontend application to a blockchain node service provider - in this instance, that node provider is Infura.
 
 ## Models
 
