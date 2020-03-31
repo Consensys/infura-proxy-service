@@ -1,6 +1,4 @@
 import { ethers } from 'ethers';
-import eventModeller from './eventModeller';
-import { registerEventModel, modelExists, getEventModel } from "./registry"
 import { createEventListener } from "./listener"
 import { initEvent } from "./event"
 
@@ -11,46 +9,19 @@ export const initContractEvents = async (provider, data) => {
     let cEvents = Object.keys(contract.interface.events)
 
     try {
-        // First loop to create all tables...
-        for (let i = 0; i < cEvents.length; i++) {
-            const ename = cEvents[i];
-            const eHash = ethers.utils.id(ename)
 
-            let model
-            if (modelExists(eHash)) {
-                console.log("model already exists for " + ename)
-                // model = getEventModel(eHash)
-            } else {
-                console.log("creating new model " + ename)
-                // create new model
-                model = eventModeller(eHash)
-                // register model
-                registerEventModel(eHash, model)
-            }           
-        }
-        
         // Second loop to add all events...
         for (let i = 0; i < cEvents.length; i++) {
             const ename = cEvents[i];
             const eHash = ethers.utils.id(ename)
 
-            let model
-            if (modelExists(eHash)) {
-                console.log("model already exists for " + ename)
-                model = getEventModel(eHash)
-            } else {
-                throw new Error("Model does not exist!")
-            }
-
-            console.log("Table Name for model: " + model.tableName)
-
             // initialize event type
-            await initEvent(contract, ename, model)
+            await initEvent(contract, ename)
 
             //KICK OFF EVENT LISTENER HERE
             let eventABI = contract.interface.events[ename]
             console.log("kicking off event listener for " + ename)
-            await createEventListener(contract, ename, eventABI.inputs, model)
+            await createEventListener(contract, ename, eventABI.inputs)
         }
         
     } catch (err) {
