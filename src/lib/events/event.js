@@ -3,7 +3,7 @@
 const FROM_BLOCK = process.env.EVENT_FROM_BLOCK ? parseInt(process.env.EVENT_FROM_BLOCK) : 0
 
 export const initEvent = async (contract, ename, model) => {
-    console.log(ename)
+    console.log("Initializing specific event: " + ename)
     let eventArray = await contract.queryFilter(ename, FROM_BLOCK)
     for (let j = 0; j < eventArray.length; j++) {
         const event = eventArray[j];

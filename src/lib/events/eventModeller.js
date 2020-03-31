@@ -21,7 +21,7 @@ const event = (topicHash) => {
     }
 
     const Event = database.define(topicHash, eventSchema);
-
+    console.log(Event.tableName)
     return Event;
 };
 
