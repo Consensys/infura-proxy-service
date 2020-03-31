@@ -17,6 +17,9 @@ const event = (topicHash) => {
         },
         rawEvent: {
             type: Sequelize.JSONB
+        },
+        jsonEvent: {
+            type: Sequelize.JSONB
         }
     }
 
