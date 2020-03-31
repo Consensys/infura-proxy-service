@@ -6,8 +6,15 @@ export const registerEventModel = (name, model) => {
 }
 
 export const getEventModel = (name) => {
-    if (name) {
-      return eventModels[name]
-    }
-    return eventModels
+  if (eventModels[name]) {
+    return eventModels[name]
+  }
+  return eventModels
+}
+
+export const modelExists = (name) => {
+  if (eventModels[name]) {
+    return true
+  }
+  return false
 }

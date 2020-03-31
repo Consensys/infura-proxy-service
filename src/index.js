@@ -11,7 +11,7 @@ import http from 'http';
 /* --- Server : Configuration --- */
 import { initServer } from '@database/apollo';
 import { initSequalize } from '@database/sequelize';
-import { initContracts, initEvents } from '@events/contracts';
+import { initContracts } from '@events';
 
 import { setupInufraProvider } from './config/ethers';
 
@@ -49,8 +49,8 @@ httpServer.listen({ port }, () => {
   initSequalize();
 
   /* --- Contracts Config --- */
-  await initContracts(process.env.CONTRACT_DIR)
+  await initContracts(process.env.CONTRACT_DIR, provider)
 
-  await initEvents(provider)
+  // await initEvents(provider)
 
 })()
