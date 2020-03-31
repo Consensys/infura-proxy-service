@@ -1,30 +1,27 @@
-import { convertSolidityType } from "./solidityType"
+// import { convertSolidityType } from "./solidityType"
 import Sequelize from 'sequelize';
 
 import database from '@database';
 
-const event = (eventABI) => {
+const event = (topicHash) => {
 
     let eventSchema = {
         transactionHash: {
             type: Sequelize.STRING,
+        },
+        contractAddress: {
+            type: Sequelize.STRING,
+        },
+        eventABI: {
+            type: Sequelize.JSONB
+        },
+        rawEvent: {
+            type: Sequelize.JSONB
         }
     }
 
-    // 1 Parse name
-    let name = eventABI.name
-
-    // 2 get inputs into type schema
-    eventABI.inputs.forEach(input => {
-        let t = convertSolidityType(input.type)
-        let iName = input.name
-        eventSchema[iName] = {
-            type: t
-        }
-    });
-
-    const Event = database.define(name, eventSchema);
-
+    const Event = database.define(topicHash, eventSchema);
+    console.log(Event.tableName)
     return Event;
 };
 
