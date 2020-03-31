@@ -14,8 +14,8 @@ export const initContractEvents = async (provider, data) => {
         for (let i = 0; i < cEvents.length; i++) {
             const ename = cEvents[i];
             const eHash = ethers.utils.id(ename)
-            
-            let model 
+
+            let model
             if (modelExists(eHash)) {
                 model = getEventModel(eHash)
             } else {

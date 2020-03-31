@@ -8,11 +8,15 @@ import {
   ensLookupAddress,
 } from '@api/infura';
 
-import { cacheEthTransaction } from '@api/query';
+import {
+  cacheEthBlock,
+  cacheEthTransaction,
+  cacheEthReceipt,
+} from '@api/query';
 
 import { getEvent, listEvents, eventTester } from '@api/event';
 
-import { newContract } from '@api/contract'
+import { newContract } from '@api/contract';
 /* ----------------------- */
 // Infura : Query : Routes
 /* ----------------------- */
@@ -26,16 +30,17 @@ export const initInfuraQueryRoutes = app => {
 };
 
 export const initCacheRoutes = app => {
+  app.use(`/cache/block/:block`, cacheEthBlock);
   app.use(`/cache/transaction/:hash`, cacheEthTransaction);
+  app.use(`/cache/receipt/:hash`, cacheEthReceipt);
 };
 
 export const initEventRoutes = app => {
   app.use(`/event/:eventName`, getEvent);
-  app.use(`/events`, listEvents)
-  app.use(`/testevent/:eventName`, eventTester)
+  app.use(`/events`, listEvents);
+  app.use(`/testevent/:eventName`, eventTester);
 };
 
-
 export const initContractRoutes = app => {
-  app.use(`/contract`, newContract)
-}
+  app.use(`/contract`, newContract);
+};
