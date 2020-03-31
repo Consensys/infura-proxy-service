@@ -7,7 +7,6 @@ import models from '@models';
 import schema from '@schema';
 import resolvers from '@resolvers';
 import loaders from '@loaders';
-import { getMe } from './jwt';
 
 /* ----------------------- */
 /* Apollo Server

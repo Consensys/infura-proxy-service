@@ -1,5 +1,4 @@
 /* --- Global --- */
-import axios from 'axios';
 
 /* --- Local --- */
 import models from '@models';
@@ -32,9 +31,7 @@ export const cacheEthBlock = async (req, res) => {
     // IF the transaction IS NOT available in the database
     // request the transaction and CREATE record in the database.
     if (!data) {
-      console.log(block, 'block');
       data = await provider.getBlock(Number(block));
-      console.log(data, 'block data');
       models.Block.create({ id: block, ...data });
       // pubsub.publish(EVENTS.BLOCK.CREATED, {
       //   blockCreated: { block: data },
