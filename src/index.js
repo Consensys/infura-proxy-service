@@ -16,7 +16,11 @@ import { initContracts } from '@events';
 import { setupInufraProvider } from './config/ethers';
 
 /* --- Application Routes --- */
-import { initInfuraQueryRoutes, initCacheRoutes, initEventRoutes } from './routes';
+import {
+  initCoreRoutes,
+  initCacheRoutes,
+  initEventRoutes,
+} from './routes';
 
 const provider = setupInufraProvider();
 /* ----------------------- */
@@ -36,21 +40,29 @@ httpServer.listen({ port }, () => {
   console.log(`Apollo Server on http://localhost:${port}/graphql`);
 });
 
-(async () => {
+const {
+  FEAUTRE_ROUTE_CORE,
+  FEAUTRE_ROUTE_CACHING,
+  FEAUTRE_ROUTE_CONTRACTS,
+} = process.env;
+
+const main = async () => {
   /* --- Server Middleware  --- */
   initServer(app, httpServer);
 
   /* --- Application Routes  --- */
-  initInfuraQueryRoutes(app);
-  initCacheRoutes(app);
-  initEventRoutes(app)
-  
+  if (Number(FEAUTRE_ROUTE_CORE)) initCoreRoutes(app);
+  if (Number(FEAUTRE_ROUTE_CACHING)) initCacheRoutes(app);
+  initEventRoutes(app);
+
   /* --- Sequelize Config --- */
   initSequalize();
 
   /* --- Contracts Config --- */
-  await initContracts(process.env.CONTRACT_DIR, provider)
+  if (Number(FEAUTRE_ROUTE_CONTRACTS))
+    await initContracts(process.env.CONTRACT_DIR, provider);
 
   // await initEvents(provider)
+};
 
-})()
+main();
