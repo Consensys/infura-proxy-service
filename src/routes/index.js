@@ -36,7 +36,7 @@ export const initCacheRoutes = app => {
 };
 
 export const initEventRoutes = app => {
-  app.use(`/event/:eventName`, getEvent);
+  app.use(`/event/:eventHash`, getEvent);
   app.use(`/events`, listEvents);
   app.use(`/testevent/:eventName`, eventTester);
 };
