@@ -33,9 +33,9 @@ export const cacheEthBlock = async (req, res) => {
     if (!data) {
       data = await provider.getBlock(Number(block));
       models.Block.create({ id: block, ...data });
-      // pubsub.publish(EVENTS.BLOCK.CREATED, {
-      //   blockCreated: { block: data },
-      // });
+      pubsub.publish(EVENTS.BLOCK.CREATED, {
+        blockCreated: { block: data },
+      });
       return res.send({ status: 'infura', data });
     } else {
       return res.send({ status: 'cache', data });

@@ -14,7 +14,6 @@ export default {
       });
     },
     transaction: async (parent, { hash }, { models }) => {
-      // return await models.Transaction.findById(hash);
       return await models.Transaction.findOne({
         where: {
           hash: hash,

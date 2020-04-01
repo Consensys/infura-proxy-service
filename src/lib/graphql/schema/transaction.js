@@ -2,15 +2,7 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
   # ---------------------------
-  # Extend : Query
-  # ---------------------------
-  extend type Query {
-    transactions(limit: Int, page: Int): [Transaction]
-    transaction(hash: ID!): Transaction
-  }
-
-  # ---------------------------
-  # Transaction : Level 1
+  # Transaction
   # ---------------------------
   type Transaction {
     id: ID!
@@ -36,10 +28,11 @@ export default gql`
   }
 
   # ---------------------------
-  # Account : Transaction : Level 2
+  # Extend : Query
   # ---------------------------
-  type BigNumber {
-    _hex: String
+  extend type Query {
+    transactions(limit: Int, page: Int): [Transaction]
+    transaction(hash: ID!): Transaction
   }
 
   # ---------------------------

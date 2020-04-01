@@ -13,7 +13,9 @@ import { initServer } from '@database/apollo';
 import { initSequalize } from '@database/sequelize';
 import { initContracts } from '@events';
 
-import { setupInufraProvider } from './config/ethers';
+import { setupInufraProvider } from '@config';
+
+import { listenEthBlock } from '@listeners';
 
 /* --- Application Routes --- */
 import {
@@ -44,6 +46,7 @@ const {
   FEAUTRE_ROUTE_CORE,
   FEAUTRE_ROUTE_CACHING,
   FEAUTRE_ROUTE_CONTRACTS,
+  FEAUTRE_LISTEN_BLOCKS,
 } = process.env;
 
 const main = async () => {
@@ -65,4 +68,9 @@ const main = async () => {
   // await initEvents(provider)
 };
 
+const listen = async () => {
+  if (Number(FEAUTRE_LISTEN_BLOCKS)) listenEthBlock();
+};
+
 main();
+listen();

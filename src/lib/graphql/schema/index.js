@@ -1,10 +1,14 @@
 import { gql } from 'apollo-server-express';
 
-import userSchema from './user';
+import common from './common';
+import user from './user';
+import block from './block';
 import transaction from './transaction';
+import receipt from './receipt';
 
 const linkSchema = gql`
   scalar Date
+  scalar BigInt
 
   type Query {
     _: Boolean
@@ -19,4 +23,11 @@ const linkSchema = gql`
   }
 `;
 
-export default [linkSchema, userSchema, transaction];
+export default [
+  linkSchema,
+  common,
+  user,
+  block,
+  transaction,
+  receipt,
+];

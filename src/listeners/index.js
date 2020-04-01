@@ -1,0 +1,1 @@
+export { listenEthBlock } from './core';

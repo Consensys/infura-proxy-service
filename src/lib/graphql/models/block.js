@@ -7,6 +7,9 @@ const block = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       primaryKey: true,
     },
+    parentHash: {
+      type: DataTypes.STRING,
+    },
     hash: {
       type: DataTypes.STRING,
     },
