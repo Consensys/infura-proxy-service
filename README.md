@@ -31,6 +31,48 @@ $ cd infura-proxy-service
 $ npm install || yarn
 ```
 
+## Running the app:
+
+### First Time:
+
+#### _Builds the app and starts all the containers_
+
+```shell
+$ bash run.sh build
+```
+
+### Running:
+
+_Runs all the containers_
+
+```shell
+$ bash run.sh run
+```
+
+### Run Dev Server
+
+#### _Runs the database container and one app instance_
+
+```shell
+$ bash run.sh dev
+```
+
+---
+
+## Deploying to Digital Ocean
+
+### You only need to run three commands on the droplet you create
+
+##### You will need at least 1GB box (postgres needs at least 1GB to handle 3 connections)
+
+##### I suggest a Ubuntu 16.04x64 box (1GB/1CPU, 30GB SSD, 2TB Transfer)
+
+```
+$ git clone https://github.com/rapid-eth/infura-proxy-service.git app
+$ cd app
+$ bash deploy.sh
+```
+
 ## Usage
 
 START
