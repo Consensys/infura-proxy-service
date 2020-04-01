@@ -1,13 +1,18 @@
-import {getEventModel} from "@events/registry"
+import models from '@models';
 
 export const getEvent = async (req, res) => {
     let data;
-    const eventName = req.params.eventName;
-    let model = getEventModel(eventName)
-  
+    const eventHash = req.params.eventHash;
+
+    let model = models.Event
+
     try {
 
-      data = await model.findAll({      });
+      data = await model.findAll({
+        where: {
+          event_topic_hash: eventHash,
+        },
+      });
       
       return res.send({ status: 'cache', data });
       
@@ -19,8 +24,6 @@ export const getEvent = async (req, res) => {
 
 export const listEvents = async (req, res) => {
     let data;
-
-    let models = getEventModel()
   
     try {
     data = Object.keys(models)
