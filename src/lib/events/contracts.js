@@ -3,27 +3,23 @@ import { createEventListener } from "./listener"
 import { initEvent } from "./event"
 
 export const initContractEvents = async (provider, data) => {
+
     console.log("Initializing Contract...")
     let contract = await parseContractJSON(provider, data)
-
-    let cEvents = Object.keys(contract.interface.events)
+    let contractEvents = Object.keys(contract.interface.events)
 
     try {
-
-        // Second loop to add all events...
-        for (let i = 0; i < cEvents.length; i++) {
-            const ename = cEvents[i];
-            const eHash = ethers.utils.id(ename)
+        for (let i = 0; i < contractEvents.length; i++) {
+            const eventName = contractEvents[i];
 
             // initialize event type
-            await initEvent(contract, ename)
+            await initEvent(contract, eventName)
 
             //KICK OFF EVENT LISTENER HERE
-            let eventABI = contract.interface.events[ename]
-            console.log("kicking off event listener for " + ename)
-            await createEventListener(contract, ename, eventABI.inputs)
+            let eventABI = contract.interface.events[eventName]
+            console.log("kicking off event listener for " + eventName)
+            await createEventListener(contract, eventName, eventABI.inputs)
         }
-        
     } catch (err) {
         console.error(err)
     }
