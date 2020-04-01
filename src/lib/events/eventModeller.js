@@ -3,10 +3,13 @@ import Sequelize from 'sequelize';
 
 import database from '@database';
 
-const event = (topicHash) => {
+const event = () => {
 
     let eventSchema = {
         transactionHash: {
+            type: Sequelize.STRING,
+        },
+        eventTopicHash: {
             type: Sequelize.STRING,
         },
         contractAddress: {
@@ -17,10 +20,13 @@ const event = (topicHash) => {
         },
         rawEvent: {
             type: Sequelize.JSONB
+        },
+        jsonEvent: {
+            type: Sequelize.JSONB
         }
     }
 
-    const Event = database.define(topicHash, eventSchema);
+    const Event = database.define("event", eventSchema);
     console.log(Event.tableName)
     return Event;
 };

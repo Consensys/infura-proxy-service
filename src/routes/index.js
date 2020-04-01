@@ -20,7 +20,7 @@ import { newContract } from '@api/contract';
 /* ----------------------- */
 // Infura : Query : Routes
 /* ----------------------- */
-export const initInfuraQueryRoutes = app => {
+export const initCoreRoutes = app => {
   app.use(`/block`, ethLatestBlock);
   app.use(`/gas`, getGasEstimate);
   app.use(`/transaction/:hash`, getEthTransaction);

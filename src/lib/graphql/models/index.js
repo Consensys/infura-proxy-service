@@ -8,6 +8,7 @@ const models = {
   Transaction: sequelize.import('./transaction'),
   Receipt: sequelize.import('./receipt'),
   ENS: sequelize.import('./ens'),
+  Event: sequelize.import('./event'),
 };
 
 Object.keys(models).forEach(key => {
