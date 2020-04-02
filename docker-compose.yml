@@ -1,24 +1,22 @@
 version: "3"
 
 services:
-  # Nginx
-  nginx:
-    image: nginx
-    links:
-      - server:server
-    ports:
-      - "80:80"
-
-  # Express Server
-  server:
-    build: ./app
+  # --- Application Infrastructure --- #
+  server: # Express Server
+    build: ./server
     environment:
       - DATABASE_HOST=postgres
     ports:
       - "3131:3131"
 
-  # PostgreSQL
-  postgres:
+  # --- Backend Infrastructure --- #
+  nginx: # Nginx
+    image: nginx
+    links:
+      - server:server
+    ports:
+      - "80:80"
+  postgres: # PostgreSQL
     image: postgres:12.2
     hostname: postgres
     env_file: .env
@@ -31,9 +29,7 @@ services:
       - POSTGRES_USER=${DATABASE_USER:-infura}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD:-infura}
       - POSTGRES_DB=test
-
-  # Postgres Dashboard
-  pgadmin:
+  pgadmin: # Postgres Dashboard
     image: dpage/pgadmin4
     restart: always
     env_file: .env
