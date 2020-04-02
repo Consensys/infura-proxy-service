@@ -1,1 +1,0 @@
-export { setupInufraProvider } from './ethers';

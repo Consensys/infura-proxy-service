@@ -1,0 +1,10 @@
+logfile
+
+.env
+
+pgdata/
+node_modules/
+
+package-lock.json
+
+local/
