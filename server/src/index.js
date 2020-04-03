@@ -6,6 +6,7 @@ import 'module-alias/register';
 import cors from 'cors';
 import morgan from 'morgan';
 import express from 'express';
+import bodyParser from 'body-parser';
 import http from 'http';
 
 /* --- Server : Configuration --- */
@@ -22,6 +23,7 @@ import {
   initCoreRoutes,
   initCacheRoutes,
   initEventRoutes,
+  initContractRoutes
 } from './routes';
 
 const provider = setupInufraProvider();
@@ -32,6 +34,7 @@ const app = express();
 const httpServer = http.createServer(app);
 app.use(cors());
 app.use(morgan('dev'));
+app.use(bodyParser.json())
 
 // Set Request Constants
 app.set('provider', provider);
@@ -53,13 +56,15 @@ const main = async () => {
   /* --- Server Middleware  --- */
   initServer(app, httpServer);
 
+  /* --- Sequelize Config --- */
+  await initSequalize();
+
   /* --- Application Routes  --- */
   if (Number(FEAUTRE_ROUTE_CORE)) initCoreRoutes(app);
   if (Number(FEAUTRE_ROUTE_CACHING)) initCacheRoutes(app);
   initEventRoutes(app);
+  initContractRoutes(app);
 
-  /* --- Sequelize Config --- */
-  initSequalize();
 
   /* --- Contracts Config --- */
   if (Number(FEAUTRE_ROUTE_CONTRACTS))

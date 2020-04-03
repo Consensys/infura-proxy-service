@@ -16,7 +16,7 @@ import {
 
 import { getEvent, listEvents, eventTester } from '@api/event';
 
-import { newContract } from '@api/contract';
+import { newContract, validation } from '@api/contract';
 /* ----------------------- */
 // Infura : Query : Routes
 /* ----------------------- */
@@ -42,5 +42,7 @@ export const initEventRoutes = app => {
 };
 
 export const initContractRoutes = app => {
-  app.use(`/contract`, newContract);
+  app.post(`/contract/truffle`, validation.truffle, newContract);
+  app.post(`/contract/raw`, validation.raw, newContract);
+  app.post(`/contract/embark`, validation.embark, newContract);
 };

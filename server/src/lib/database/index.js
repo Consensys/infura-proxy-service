@@ -1,5 +1,7 @@
 import Sequelize from 'sequelize';
 
+let logging =  !!Number(process.env.FEAUTRE_LOG_SQL)
+
 let sequelize;
 if (process.env.DATABASE_URL) {
   sequelize = new Sequelize(process.env.DATABASE_URL, {
@@ -8,6 +10,7 @@ if (process.env.DATABASE_URL) {
     define: {
       freezeTableName: true, //prevent sequelize from pluralizing table names
     },
+    logging,
   });
 } else {
   sequelize = new Sequelize(
@@ -20,7 +23,7 @@ if (process.env.DATABASE_URL) {
       define: {
         freezeTableName: true,
       },
-      // logging: false // prevent SQL logging to console
+      logging,
     }
   );
 }
