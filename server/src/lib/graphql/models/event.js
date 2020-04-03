@@ -1,5 +1,5 @@
 /* ----------------------- */
-/* ENS Model
+/* Event Model
 /* ----------------------- */
 const event = (sequelize, DataTypes) => {
   const Event = sequelize.define('event', {

@@ -11,6 +11,8 @@ const models = {
   // Event
   Event: sequelize.import('./event'),
   EventMeta: sequelize.import('./eventMeta'),
+  // Contract
+  Contract: sequelize.import('./contract'),
 
 };
 
