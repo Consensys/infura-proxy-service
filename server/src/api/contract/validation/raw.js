@@ -3,10 +3,6 @@ import {sendDataError } from "./utils"
 const customRawValidation = async (req, res, next) => {
     let body = req.body
 
-    const provider = req.app.get('provider');
-    let network = await provider.getNetwork()
-    let chainID = network.chainId
-
     // check that name works
     if (typeof body.name !== "string") {
         return sendDataError(res, "name must be a string")

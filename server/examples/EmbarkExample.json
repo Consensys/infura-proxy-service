@@ -1,0 +1,122 @@
+{
+    "abiDefinition": [
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "initialValue",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor",
+        "name": "constructor",
+        "signature": "constructor"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "caller",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "_value",
+            "type": "uint256"
+          }
+        ],
+        "name": "Set",
+        "type": "event",
+        "signature": "0xfd28ec3ec2555238d8ad6f9faf3e4cd10e574ce7e7ef28b73caa53f9512f65b9"
+      },
+      {
+        "inputs": [],
+        "name": "get",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "retVal",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true,
+        "signature": "0x6d4ce63c"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "x",
+            "type": "uint256"
+          }
+        ],
+        "name": "set",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x60fe47b1"
+      },
+      {
+        "inputs": [],
+        "name": "storedData",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true,
+        "signature": "0x2a1afcd9"
+      }
+    ],
+    "deployedAddress": "0x5Baf4D88bC454537C51CEC7568a1E23400483abc",
+    "className": "SimpleStorage",
+    "args": [
+      100
+    ],
+    "gas": 130179,
+    "gasPrice": "2000000000",
+    "silent": false,
+    "track": true,
+    "deploy": true,
+    "realRuntimeBytecode": "6080604052348015600f57600080fd5b5060043610603c5760003560e01c80632a1afcd914604157806360fe47b11460595780636d4ce63c146075575b600080fd5b6047607b565b60408051918252519081900360200190f35b607360048036036020811015606d57600080fd5b50356081565b005b604760c4565b60005481565b6000819055604080513381526020810183905281517ffd28ec3ec2555238d8ad6f9faf3e4cd10e574ce7e7ef28b73caa53f9512f65b9929181900390910190a150565b6000549056fea2646970667358221220721273d2de8ce865ab",
+    "realArgs": [],
+    "fromIndex": 0,
+    "code": "608060405234801561001057600080fd5b506040516101473803806101478339818101604052602081101561003357600080fd5b5051600055610100806100476000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80632a1afcd914604157806360fe47b11460595780636d4ce63c146075575b600080fd5b6047607b565b60408051918252519081900360200190f35b607360048036036020811015606d57600080fd5b50356081565b005b604760c4565b60005481565b6000819055604080513381526020810183905281517ffd28ec3ec2555238d8ad6f9faf3e4cd10e574ce7e7ef28b73caa53f9512f65b9929181900390910190a150565b6000549056fea2646970667358221220721273d2de8ce865abc555d4c219a5eac6ac00aa9267db0a23fbb223f0b356ce64736f6c63430006010033",
+    "runtimeBytecode": "6080604052348015600f57600080fd5b5060043610603c5760003560e01c80632a1afcd914604157806360fe47b11460595780636d4ce63c146075575b600080fd5b6047607b565b60408051918252519081900360200190f35b607360048036036020811015606d57600080fd5b50356081565b005b604760c4565b60005481565b6000819055604080513381526020810183905281517ffd28ec3ec2555238d8ad6f9faf3e4cd10e574ce7e7ef28b73caa53f9512f65b9929181900390910190a150565b6000549056fea2646970667358221220721273d2de8ce865abc555d4c219a5eac6ac00aa9267db0a23fbb223f0b356ce64736f6c63430006010033",
+    "linkReferences": {},
+    "swarmHash": "c555d4c219a5eac6ac00aa9267db0a23fbb223f0b356ce64736f6c6343000601",
+    "gasEstimates": {
+      "creation": {
+        "codeDepositCost": "51200",
+        "executionCost": "infinite",
+        "totalCost": "infinite"
+      },
+      "external": {
+        "get()": "1020",
+        "set(uint256)": "21539",
+        "storedData()": "976"
+      }
+    },
+    "functionHashes": {
+      "get()": "6d4ce63c",
+      "set(uint256)": "60fe47b1",
+      "storedData()": "2a1afcd9"
+    },
+    "filename": "/Users/joeb/Workspace/misc_apps/embark_demo/.embark/contracts/simple_storage.sol",
+    "originalFilename": "contracts/simple_storage.sol",
+    "path": "/Users/joeb/Workspace/misc_apps/embark_demo/contracts/simple_storage.sol",
+    "type": "file",
+    "deploymentAccount": "0xB8D851486d1C953e31A44374ACa11151D49B8bb3",
+    "transactionHash": "0xced31f59d5df3bc3d0eaba2206c126fa5a1b0778d6e6b7b94c0fc3172eb681e5"
+  }
+  
