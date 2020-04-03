@@ -6,7 +6,7 @@ import { initContractEvents } from './contracts';
 // interface to initialize contracts on startup
 export const initContracts = async (dir, provider) => {
   if (!fs.existsSync(dir)) {
-    console.error('Directory does not exist: ', dir);
+    console.err('Directory does not exist: ', dir);
     return;
   }
 
@@ -17,23 +17,12 @@ export const initContracts = async (dir, provider) => {
       var filename = path.join(dir, file);
       const fileContents = fs.readFileSync(filename, 'utf8');
       const data = JSON.parse(fileContents);
-      await initContractEvents(provider, data);
-    }
+      const contractJSON = await parseTruffleFormatJSON(
+        data,
+        provider
+      );
 
-    let files = fs.readdirSync(dir);
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      if (/.*.json/.test(file)) {
-        var filename = path.join(dir, file);
-        const fileContents = fs.readFileSync(filename, 'utf8');
-        const data = JSON.parse(fileContents);
-        const contractJSON = await parseTruffleFormatJSON(
-          data,
-          provider
-        );
-
-        await initContractEvents(provider, contractJSON);
-      }
+      await initContractEvents(provider, contractJSON);
     }
   }
 };
@@ -48,3 +37,6 @@ const parseTruffleFormatJSON = async (json, provider) => {
   };
   return contractJSON;
 };
+
+// exports of necessary external utils
+// export { initContractEvents } from "./contracts"
