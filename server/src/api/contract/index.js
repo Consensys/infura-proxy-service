@@ -1,4 +1,5 @@
 import { initContractEvents } from '@events/contracts';
+import models from '@models';
 
 export const newContract = async (req, res) => {
     const provider = req.app.get('provider');
