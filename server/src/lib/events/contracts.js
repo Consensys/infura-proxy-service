@@ -2,14 +2,11 @@ import { ethers } from 'ethers';
 import { createEventListener } from './listener';
 import { initEvent } from './event';
 
-export const initContractEvents = async (provider, data) => {
-  console.log('Initializing Contract...');
-  let contract = await parseContractJSON(provider, data);
-  let contractEvents = Object.keys(contract.interface.events);
+export const initContractEvents = async (provider, contractData) => {
 
-  try {
-    for (let i = 0; i < contractEvents.length; i++) {
-      const eventName = contractEvents[i];
+    console.log("Initializing Contract...")
+    let contract = await parseJSONToContract(provider, contractData)
+    let contractEvents = Object.keys(contract.interface.events)
 
       // initialize event type
       await initEvent(contract, eventName);
@@ -24,13 +21,8 @@ export const initContractEvents = async (provider, data) => {
   }
 };
 
-const parseContractJSON = async (provider, json) => {
-  let network = await provider.getNetwork();
-  let chainID = network.chainId;
-  const contract = new ethers.Contract(
-    json.networks[chainID].address,
-    json.abi,
-    provider
-  );
-  return contract;
-};
+const parseJSONToContract = (provider, contractData) => {
+    console.log("JOEOE", contractData)
+    const contract = new ethers.Contract(contractData.address, contractData.abi, provider)
+    return contract
+}
