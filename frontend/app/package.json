@@ -1,7 +1,7 @@
 {
-  "name": "cerebro-application",
+  "name": "infura-proxy-service-frontend-app",
   "author": "Kames <info@kamescg.com>",
-  "description": "The frontend interface for Cerebro.",
+  "description": "The frontend interface for Infura Proxy Service.",
   "private": false,
   "version": "0.0.1",
   "scripts": {

@@ -13,14 +13,14 @@ const event = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     event_abi: {
-      type: DataTypes.JSONB
+      type: DataTypes.JSONB,
     },
     raw_event: {
-      type: DataTypes.JSONB
+      type: DataTypes.JSONB,
     },
     json_event: {
-      type: DataTypes.JSONB
-    }
+      type: DataTypes.JSONB,
+    },
   });
 
   return Event;

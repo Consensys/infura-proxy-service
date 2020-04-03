@@ -1,25 +1,44 @@
 /* --- Global --- */
 
 /* --- Local --- */
-import {TransactionsTable} from '@containers';
-import {TransactionsQuery} from '@query';
-import {Table} from '@horizin/molecules';
+import {FormTransactionRequest} from '@forms';
+import {EventListTable} from '@containers';
+import {EventListQuery} from '@query';
 
 /* --- Component --- */
 const DashboardOverview = props => {
   return (
     <Atom.Box>
+      <Showcase />
       <RegionMain />
     </Atom.Box>
   );
 };
 
+/* --- Showcase : Component --- */
+const Showcase = props => {
+  return (
+    <Atom.Box gradient="gray" sx={styleShowcase}>
+      <Atom.Container>
+        <FormTransactionRequest sx={{display: 'flex'}} horizontal />
+      </Atom.Container>
+    </Atom.Box>
+  );
+};
+
+const styleShowcase = {
+  boxShadow: 1,
+  color: 'white',
+  py: [4, 4, 5],
+  width: '100%',
+};
+
 const RegionMain = props => {
   return (
     <Atom.Box sx={{m: 4, overflowX: 'auto'}}>
-      <TransactionsQuery>
-        <TransactionsTable />
-      </TransactionsQuery>
+      <EventListQuery>
+        <EventListTable />
+      </EventListQuery>
     </Atom.Box>
   );
 };

@@ -13,7 +13,7 @@ const RegionAside = ({sx, ...props}) => {
       sx={{variant: 'regions.aside'}}>
       {/* Branding : Area : Aside  */}
       <Atom.Flex center column between gradient="trans" sx={{p: 4}}>
-        <Molecule.Link to="/">
+        <Molecule.Link to="/insights">
           <Atom.Heading lg heavy sx={{mb: 0}}>
             {GLOBAL.siteName}
           </Atom.Heading>

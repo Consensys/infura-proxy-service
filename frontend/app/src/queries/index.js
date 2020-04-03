@@ -12,6 +12,44 @@ export const GET_ME = gql`
 `;
 
 /* ----------------------- */
+// Event : Query
+/* ----------------------- */
+export const GET_EVENT = gql`
+  query($hash: ID!) {
+    event(hash: $hash) {
+      transaction_hash
+      event_topic_hash
+      contract_address
+    }
+  }
+`;
+
+export const GET_EVENT_LIST = gql`
+  query($limit: Int) {
+    eventList(limit: $limit) {
+      transaction_hash
+      event_topic_hash
+      contract_address
+      event_abi
+      raw_event
+      json_event
+    }
+  }
+`;
+
+export const EVENT_CREATED = gql`
+  subscription {
+    eventCreated {
+      event {
+        transaction_hash
+        event_topic_hash
+        contract_address
+      }
+    }
+  }
+`;
+
+/* ----------------------- */
 // Transaction : Query
 /* ----------------------- */
 export const GET_TRANSACTION = gql`

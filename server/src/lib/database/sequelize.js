@@ -8,7 +8,7 @@ export const initSequalize = () => {
    * @function Sequalize.sync
    * @description Initialize the connection to the Postgres Database
    */
-  database.sync({ force: isTest || isProduction }).then(async () => {
+  database.sync({ force: !isTest || isProduction }).then(async () => {
     console.warn('Database Initialized');
   });
 };

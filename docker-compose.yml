@@ -2,20 +2,24 @@ version: "3"
 
 services:
   # --- Application Infrastructure --- #
-  server: # Express Server
-    build: ./server
-    environment:
-      - DATABASE_HOST=postgres
-    ports:
-      - "3131:3131"
+  # frontend: # Frontend Application
+  #   build: ./frontend
+  #   ports:
+  #     - "3000:3000"
+  # server: # Backend Application
+  #   build: ./server
+  #   environment:
+  #     - DATABASE_HOST=postgres
+  #   ports:
+  #     - "3131:3131"
 
   # --- Backend Infrastructure --- #
-  nginx: # Nginx
-    image: nginx
-    links:
-      - server:server
-    ports:
-      - "80:80"
+  # nginx: # Nginx
+  #   image: nginx
+  #   links:
+  #     - server:server
+  #   ports:
+  #     - "80:80"
   postgres: # PostgreSQL
     image: postgres:12.2
     hostname: postgres

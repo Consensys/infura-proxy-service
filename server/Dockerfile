@@ -1,8 +1,8 @@
 FROM node:latest
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY . /usr/src/app
+RUN mkdir -p /usr/src/server
+WORKDIR /usr/src/server
+COPY . /usr/src/server
 RUN npm install
 
 EXPOSE 3131
