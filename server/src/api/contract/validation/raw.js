@@ -1,31 +1,33 @@
-import {sendDataError } from "./utils"
+import { sendDataError } from './utils';
 
 const customRawValidation = async (req, res, next) => {
-    let body = req.body
+  let body = req.body;
 
-    // check that name works
-    if (typeof body.name !== "string") {
-        return sendDataError(res, "name must be a string")
-    }
+  console.log(body, 'body');
 
-    // check that  "abi": is an array
-    if (!Array.isArray(body.abi)) {
-        return sendDataError(res, "abi must be an array")
-    }
+  // check that name works
+  if (typeof body.name !== 'string') {
+    return sendDataError(res, 'name must be a string');
+  }
 
-    let addressRegex = /0[xX][0-9a-fA-F]{40}/;
+  // check that  "abi": is an array
+  if (!Array.isArray(body.abi)) {
+    return sendDataError(res, 'abi must be an array');
+  }
 
-    if (!addressRegex.test(body.address)) {
-        return sendDataError(res, "invalid contract address")
-    }
+  let addressRegex = /0[xX][0-9a-fA-F]{40}/;
 
-    req.contract = {
-        name: body.name,
-        abi: body.abi,
-        address: body.address
-    }
+  if (!addressRegex.test(body.address)) {
+    return sendDataError(res, 'invalid contract address');
+  }
 
-    next()
-}
+  req.contract = {
+    name: body.name,
+    abi: body.abi,
+    address: body.address,
+  };
 
-export default customRawValidation
+  next();
+};
+
+export default customRawValidation;

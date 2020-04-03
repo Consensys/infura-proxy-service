@@ -1,4 +1,3 @@
-
 export const sendDataError = (res, errorMessage) => {
-    return res.status(404).send(errorMessage)
-}
+  return res.status(400).send(errorMessage);
+};

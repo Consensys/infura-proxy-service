@@ -50,6 +50,41 @@ export const EVENT_CREATED = gql`
 `;
 
 /* ----------------------- */
+// Event : Query
+/* ----------------------- */
+export const GET_EVENT_META = gql`
+  query($hash: ID!) {
+    eventMeta(hash: $hash) {
+      event_topic_hash
+      event_name
+      event_bare_name
+    }
+  }
+`;
+
+export const GET_EVENT_META_LIST = gql`
+  query($limit: Int) {
+    eventMetaList(limit: $limit) {
+      event_topic_hash
+      event_name
+      event_bare_name
+    }
+  }
+`;
+
+export const EVENT_META_CREATED = gql`
+  subscription {
+    eventMetaCreated {
+      eventMeta {
+        event_topic_hash
+        event_name
+        event_bare_name
+      }
+    }
+  }
+`;
+
+/* ----------------------- */
 // Transaction : Query
 /* ----------------------- */
 export const GET_TRANSACTION = gql`

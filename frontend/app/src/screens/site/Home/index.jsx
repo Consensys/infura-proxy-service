@@ -7,8 +7,8 @@
 /* --- Global --- */
 
 /* --- Local --- */
-import {FormTransactionRequest} from '@forms';
 import {TransactionListQuery} from '@containers';
+import {FormContractRawUpload} from '@forms';
 
 /* --- Screen : Component --- */
 const Screen = props => {
@@ -67,27 +67,22 @@ const Showcase = props => {
               }}>
               <Atom.Heading strong>
                 <Atom.Span normal sm>
-                  Enter a Transaction Hash
+                  Optimize Application's Infrastructure
                 </Atom.Span>
                 <br />
-                Initialize Infura Request & Caching
+                <Atom.Span sx={{fontSize: [3, 3, 4]}}>
+                  Setup Ethereum Caching API
+                </Atom.Span>
               </Atom.Heading>
               <Atom.HorizontalRule sx={{my: 2}} />
-              <FormTransactionRequest label="Download Guide" />
+              <FormContractRawUpload />
               <Atom.HorizontalRule sx={{my: 3}} />
               <Atom.Heading as="h5" sm>
-                Dispatch a request to retrieve a blockchain transaction.
+                Setup a smart contract caching endpoint using the
+                infura-proxy-service.
               </Atom.Heading>
             </Atom.Box>
             {/* End : Card */}
-            <Atom.Span sm>
-              Experiment with the Infura Proxy Service.
-              <Atom.Span>
-                <Molecule.Link to="/download">
-                  <strong>Download Today</strong>
-                </Molecule.Link>
-              </Atom.Span>
-            </Atom.Span>
           </Atom.Flex>
         </Atom.Flex>
       </Atom.Container>

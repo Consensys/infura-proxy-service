@@ -14,8 +14,14 @@ const eventMeta = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     event_abi: {
-      type: DataTypes.JSONB
-    }
+      type: DataTypes.JSONB,
+    },
+    // createdAt: {
+    //   type: DataTypes.STRING,
+    // },
+    // updatedAt: {
+    //   type: DataTypes.STRING,
+    // },
   });
 
   return EventMeta;
