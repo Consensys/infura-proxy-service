@@ -1,5 +1,5 @@
 /* ----------------------- */
-/* ENS Model
+/* Event Metadata Model
 /* ----------------------- */
 const eventMeta = (sequelize, DataTypes) => {
   const EventMeta = sequelize.define('event_meta', {
