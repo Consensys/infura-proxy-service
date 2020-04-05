@@ -4,6 +4,7 @@ import common from './common';
 import user from './user';
 import block from './block';
 import event from './event';
+import eventMeta from './eventMeta';
 import transaction from './transaction';
 import receipt from './receipt';
 
@@ -30,6 +31,7 @@ export default [
   user,
   block,
   event,
+  eventMeta,
   transaction,
   receipt,
 ];

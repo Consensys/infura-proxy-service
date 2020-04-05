@@ -10,6 +10,9 @@
 import {TransactionListQuery} from '@containers';
 import {FormContractRawUpload} from '@forms';
 
+import {EventMetaListTable} from '@containers';
+import {EventMetaListQuery} from '@query';
+
 /* --- Screen : Component --- */
 const Screen = props => {
   return (
@@ -101,7 +104,9 @@ const Main = props => {
   return (
     <Atom.Box sx={{bg: 'smoke'}}>
       <Atom.Container>
-        <TransactionListQuery />
+        <EventMetaListQuery>
+          <EventMetaListTable />
+        </EventMetaListQuery>
       </Atom.Container>
     </Atom.Box>
   );
