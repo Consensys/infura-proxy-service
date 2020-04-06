@@ -6,19 +6,18 @@ import models from '@models';
 export const initContractEvents = async (provider, contractData) => {
   console.log('Initializing Contract...');
 
-
-  console.log("contract added to db" + contractData.name)
-  let contract = await parseJSONToContract(provider, contractData);
-  let contractEvents = Object.keys(contract.interface.events);
-
-  let eventSignatures = contractEvents.map(e => ethers.utils.id(e))
-
-  // first add contract to db (address is primary key, bounces are fine)
-  contractData['event_topics'] = eventSignatures
-  models.Contract.create(contractData)
-
-
   try {
+    console.log('contract added to db' + contractData.name);
+    let contract = await parseJSONToContract(provider, contractData);
+    let contractEvents = Object.keys(contract.interface.events);
+
+    let eventSignatures = contractEvents.map((e) =>
+      ethers.utils.id(e)
+    );
+
+    // first add contract to db (address is primary key, bounces are fine)
+    contractData['event_topics'] = eventSignatures;
+    models.Contract.create(contractData);
     for (let i = 0; i < contractEvents.length; i++) {
       const eventName = contractEvents[i];
 

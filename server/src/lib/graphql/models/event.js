@@ -5,6 +5,7 @@ const event = (sequelize, DataTypes) => {
   const Event = sequelize.define('event', {
     transaction_hash: {
       type: DataTypes.STRING,
+      primaryKey: true,
     },
     event_topic_hash: {
       type: DataTypes.STRING,

@@ -11,7 +11,6 @@ export default {
       const events = await models.EventMeta.findAll({
         limit: limit || 30,
       });
-      console.log(events, 'eventsevents');
       try {
         parsed = events.map((event) => {
           Object.keys(event.dataValues).forEach((key) => {
@@ -41,8 +40,8 @@ export default {
     createEventMeta: async (parent, event, { models }) => {
       const data = await models.EventMeta.create(event);
 
-      pubsub.publish(EVENTS.EVENT.CREATED, {
-        eventCreated: { event: data },
+      pubsub.publish(EVENTS.EVENT_META.CREATED, {
+        eventMetaCreated: { event: data },
       });
 
       return { event: data };

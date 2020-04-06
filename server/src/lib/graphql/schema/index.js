@@ -3,6 +3,7 @@ import { gql } from 'apollo-server-express';
 import common from './common';
 import user from './user';
 import block from './block';
+import contract from './contract';
 import event from './event';
 import eventMeta from './eventMeta';
 import transaction from './transaction';
@@ -30,6 +31,7 @@ export default [
   common,
   user,
   block,
+  contract,
   event,
   eventMeta,
   transaction,

@@ -12,14 +12,21 @@ export default gql`
     event_abi: String!
     raw_event: String!
     json_event: String!
+    createdAt: String!
   }
 
   # ---------------------------
   # Extend : Query
   # ---------------------------
   extend type Query {
-    eventList(limit: Int, page: Int): [Event]
+    eventList(limit: Int, page: Int, filters: EventFilters): [Event]
     event(hash: ID!): Event
+  }
+
+  input EventFilters {
+    transaction_hash: String
+    event_topic_hash: String
+    contract_address: String
   }
 
   # ---------------------------

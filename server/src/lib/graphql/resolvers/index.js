@@ -3,6 +3,7 @@ import BigInteger from './custom/BigInt';
 
 import userResolvers from './user';
 import block from './block';
+import contract from './contract';
 import event from './event';
 import eventMeta from './eventMeta';
 import transaction from './transactions';
@@ -17,6 +18,7 @@ export default [
   customScalarResolver,
   userResolvers,
   block,
+  contract,
   event,
   eventMeta,
   transaction,

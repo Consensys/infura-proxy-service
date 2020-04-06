@@ -3,17 +3,29 @@
 /* --- Local --- */
 import pubsub, { EVENTS } from '@subscription';
 
+const generateFilter = (filters) => {
+  let where = {};
+  Object.keys(filters).forEach((k) => (where[k] = filters[k]));
+  return where;
+};
+
 /* --- Event : Resolver --- */
 export default {
   Query: {
-    eventList: async (parent, { limit }, { models }) => {
+    eventList: async (
+      parent,
+      { limit, filters = {} },
+      { models }
+    ) => {
       let parsed;
+      console.log(filters, 'filters');
       const events = await models.Event.findAll({
         limit: limit || 30,
+        where: filters,
       });
       try {
-        parsed = events.map(event => {
-          Object.keys(event.dataValues).forEach(key => {
+        parsed = events.map((event) => {
+          Object.keys(event.dataValues).forEach((key) => {
             if (
               key == 'event_abi' ||
               key == 'json_event' ||
