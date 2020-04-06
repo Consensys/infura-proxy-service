@@ -1,34 +1,18 @@
+/** @jsx jsx */
+import { jsx } from "theme-ui";
 import React from "react";
 import { useTable } from "react-table";
-import styled from "@emotion/styled";
 
-const Styles = styled.div`
-  padding: 1rem;
-  table {
-    border-spacing: 0;
-    border: 1px solid black;
-    width: 100%;
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-      :last-child {
-        border-right: 0;
-      }
-    }
-  }
-`;
+import { Box } from "@horizin/atoms";
 
-export function TableBase({ columns, data }) {
+export function TableBase({
+  columns,
+  data,
+  sxHeader,
+  sxRow,
+  sxCell,
+  hideMainHeaders
+}) {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -41,6 +25,8 @@ export function TableBase({ columns, data }) {
     data
   });
 
+  if (hideMainHeaders) headerGroups.shift();
+
   // Render the UI for your table
   return (
     <table {...getTableProps()}>
@@ -48,7 +34,9 @@ export function TableBase({ columns, data }) {
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              <Header {...column.getHeaderProps()} sx={sxHeader}>
+                {column.render("Header")}
+              </Header>
             ))}
           </tr>
         ))}
@@ -57,11 +45,15 @@ export function TableBase({ columns, data }) {
         {rows.map((row, i) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
+            <Row {...row.getRowProps()} sx={sxRow}>
               {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                return (
+                  <Cell {...cell.getCellProps()} sx={sxCell}>
+                    {cell.render("Cell")}
+                  </Cell>
+                );
               })}
-            </tr>
+            </Row>
           );
         })}
       </tbody>
@@ -70,13 +62,11 @@ export function TableBase({ columns, data }) {
 }
 
 export const Table = ({ columns, data, ...props }) => {
-  // const data = React.useMemo(() => makeData(20), []);
-  console.log(columns, data, "proper");
-  return !data ? null : (
-    <Styles>
-      <TableBase columns={columns} data={data} />
-    </Styles>
-  );
+  return !data ? null : <TableBase columns={columns} data={data} {...props} />;
 };
+
+const Header = props => <Box as="th" {...props} />;
+const Row = props => <Box as="tr" {...props} />;
+const Cell = props => <Box as="td" {...props} />;
 
 export default Table;

@@ -10,8 +10,8 @@
 import {TransactionListQuery} from '@containers';
 import {FormContractRawUpload} from '@forms';
 
-import {EventMetaListTable} from '@containers';
-import {EventMetaListQuery} from '@query';
+import {EventListTable, EventMetaListTable, ContractTable} from '@containers';
+import {EventListQuery, EventMetaListQuery, ContractListQuery} from '@query';
 
 /* --- Screen : Component --- */
 const Screen = props => {
@@ -94,7 +94,6 @@ const Showcase = props => {
 };
 
 const styleShowcase = {
-  // bg: 'blue',
   color: 'white',
   py: [4, 4, 5],
   width: '100%',
@@ -102,11 +101,30 @@ const styleShowcase = {
 
 const Main = props => {
   return (
-    <Atom.Box sx={{bg: 'smoke'}}>
-      <Atom.Container>
+    <Atom.Box sx={{bg: 'white'}}>
+      <Atom.Container sx={{overflow: 'auto'}}>
+        {/* <Atom.Heading
+          sx={{fontSize: [3, 3, 4], textAlign: 'center', my: 3, mt: 5}}>
+          Contracts
+        </Atom.Heading> */}
+        <ContractListQuery>
+          <ContractTable />
+        </ContractListQuery>
+        {/* <Atom.Heading
+          sx={{fontSize: [3, 3, 4], textAlign: 'center', my: 3, mt: 5}}>
+          Contract Events
+        </Atom.Heading> */}
         <EventMetaListQuery>
-          <EventMetaListTable />
+          <EventMetaListTable sx={{mt: 4}} />
         </EventMetaListQuery>
+
+        <EventListQuery
+          // transactionHash="0x8c56844e354a4d58ff3684bf7c5a33bc51b0bf16f1beb3cc4d9a294c852a8e0a"
+          contractAddress="0x588f2304b0fac8b9eb7d1ff4c84a1279a1c73796"
+          // eventTopicHash="0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+        >
+          <EventListTable sx={{mt: 4}} />
+        </EventListQuery>
       </Atom.Container>
     </Atom.Box>
   );

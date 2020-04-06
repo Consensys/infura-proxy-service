@@ -1,39 +1,38 @@
 /* --- Global --- */
-import {Table} from '@horizin/molecules';
+import {TableAdvanced} from '@horizin/molecules';
 import {shortenAddress, shortenHash} from '@src/utilities';
 /* --- Local --- */
 
 /* --- Component --- */
-const TransactionTable = ({data}) => {
+const TransactionTable = ({data, sx}) => {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Core',
+        Header: () => (
+          <Atom.Heading sx={{fontSize: [3, 3, 4], textAlign: 'center', my: 3}}>
+            Contracts
+          </Atom.Heading>
+        ),
+        id: 'core',
         columns: [
           {
-            Header: 'Hash',
-            accessor: d => shortenHash(d.hash, 10),
+            Header: 'Name',
+            accessor: 'name',
           },
           {
-            Header: 'Parent Hash',
-            accessor: d => shortenHash(d.parentHash, 10),
-          },
-        ],
-      },
-      {
-        Header: 'Exta',
-        columns: [
-          {
-            Header: 'Miner',
-            accessor: d => shortenAddress(d.miner, 10),
+            Header: 'Address',
+            accessor: 'address',
+            // accessor: d => shortenHash(d.address, 10),
           },
           {
-            Header: 'Difficulty',
-            accessor: 'difficulty',
-          },
-          {
-            Header: 'Timestamp',
-            accessor: 'timestamp',
+            Header: 'Event Topics',
+            accessor: d => (
+              <Atom.Flex column>
+                {d.event_topics.map(topic => (
+                  <Atom.Span>{shortenHash(topic, 10)}</Atom.Span>
+                ))}
+              </Atom.Flex>
+            ),
           },
         ],
       },
@@ -43,14 +42,14 @@ const TransactionTable = ({data}) => {
 
   return (
     <>
-      <Table
+      <TableAdvanced
         columns={columns}
         data={data}
         sx={{
           border: '1px solid',
           borderColor: 'gray',
           width: '100%',
-          // ...sx,
+          ...sx,
         }}
         sxHeader={{
           borderBottom: '2px solid ',
@@ -69,6 +68,9 @@ const TransactionTable = ({data}) => {
           '&:hover': {
             bg: 'smoke',
           },
+        }}
+        sxPagination={{
+          mt: 3,
         }}
       />
     </>

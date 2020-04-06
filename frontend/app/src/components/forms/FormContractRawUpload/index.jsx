@@ -26,8 +26,6 @@ const FormTransactionRequest = ({horizontal, sx, ...props}) => {
   /* --- Submit Handler --- */
   const onSubmit = values => {
     if (values) {
-      console.log(abi);
-      console.log(JSON.parse(values.abi));
       axios
         .post('http://localhost:3131/contract/raw/', {
           address: values.address,

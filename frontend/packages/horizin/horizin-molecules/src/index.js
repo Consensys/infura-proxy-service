@@ -5,3 +5,6 @@ export { Link } from "./Link";
 export { Menu } from "./Menu";
 export { Select } from "./Select";
 export { Table } from "./Table";
+export { TableAdvanced } from "./TableAdvanced";
+export { TablePaginated } from "./TablePaginated";
+// export { Tags } from "./Tags";

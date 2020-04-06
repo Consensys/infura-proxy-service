@@ -67,6 +67,10 @@ const MenuItem = ({ children, label, to, icon, vertical, ...props }) => {
               borderBottom: "2px solid",
               borderBottomColor: "transparent",
               outline: "none",
+              "&.active": {
+                outline: "none",
+                opacity: 1
+              },
               "&:hover": props.hover
             }}
             active={props.active}

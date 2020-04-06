@@ -8,7 +8,8 @@ const EpochToRelativeDate = props => {
   const [relative, setRelative] = useState(0);
 
   useEffect(() => {
-    const DateFromMillis = DateTime.fromMillis(props.epoch * SecondsToMill);
+    // const DateFromMillis = DateTime.fromMillis(props.epoch * SecondsToMill);
+    const DateFromMillis = DateTime.fromMillis(Number(props.epoch));
     if (DateFromMillis.isValid) setRelative(DateFromMillis.toRelative());
   }, [epoch]);
 

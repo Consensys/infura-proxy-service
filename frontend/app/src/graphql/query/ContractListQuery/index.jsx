@@ -4,41 +4,39 @@ import {Query} from 'react-apollo';
 import {Component} from '@horizin/ui-compose';
 
 /* --- Local --- */
-import {GET_EVENT_LIST, EVENT_CREATED} from '@queries';
+import {GET_CONTRACT_LIST, CONTRACT_CREATED} from '@queries';
 
-/* --- EventListQuery : Component --- */
-const EventListQuery = ({
-  children,
-  contractAddress,
-  transactionHash,
-  eventTopicHash,
-}) => {
+const convertToObject = item => {
+  let i = {};
+  Object.keys(item).forEach(k => {
+    if (k === 'abi' || k === 'event_topics') {
+      i[k] = JSON.parse(item[k]);
+    } else {
+      i[k] = item[k];
+    }
+  });
+  return i;
+};
+
+/* --- ContractListQuery : Component --- */
+const ContractListQuery = ({children}) => {
   return (
     <>
-      <Query
-        query={GET_EVENT_LIST}
-        variables={{
-          limit: 15,
-          filters: {
-            contract_address: contractAddress,
-            event_topic_hash: eventTopicHash,
-            transaction_hash: transactionHash,
-          },
-        }}>
+      <Query query={GET_CONTRACT_LIST} variables={{limit: 10}}>
         {({data, refetch, subscribeToMore}) => (
-          <EventList
+          <ContractList
             refetch={refetch}
             data={data}
             subscribeToMore={subscribeToMore}>
             {children}
-          </EventList>
+          </ContractList>
         )}
       </Query>
     </>
   );
 };
 
-const EventList = ({refetch, data, subscribeToMore, children}) => {
+const ContractList = ({refetch, data, subscribeToMore, children}) => {
   let [list, setList] = useState([]);
   let [subscription, setSubscription] = useState();
 
@@ -48,12 +46,20 @@ const EventList = ({refetch, data, subscribeToMore, children}) => {
 
   useEffect(() => {
     refetch();
-    SubscribeToEvent(list, setList);
+    SubscribeToContract(list, setList);
   }, []);
 
   useEffect(() => {
-    console.log(data, 'event datadata');
-    if (data && data.eventList) setList(concat(list, data.eventList));
+    // console.log(data, 'datadata');
+    if (data && data.contractList) {
+      data.contractList.map(item => convertToObject(item));
+      setList(
+        concat(
+          list,
+          data.contractList.map(item => convertToObject(item)),
+        ),
+      );
+    }
   }, [data]);
 
   useEffect(() => {
@@ -64,20 +70,20 @@ const EventList = ({refetch, data, subscribeToMore, children}) => {
   }, [subscription]);
 
   useEffect(() => {
-    console.log(list);
+    console.log(list, 'listtt');
   }, [list]);
 
-  const SubscribeToEvent = (lists, setLists) => {
+  const SubscribeToContract = (lists, setLists) => {
     subscribeToMore({
-      document: EVENT_CREATED,
+      document: CONTRACT_CREATED,
       updateQuery: (previousResult, {subscriptionData, ...rest}) => {
         console.log(subscriptionData, 'subscriptionData');
         if (!subscriptionData.data) {
           return previousResult;
         }
-        const {eventCreated} = subscriptionData.data;
-        if (eventCreated.event) {
-          setSubscription(eventCreated.event);
+        const {contractCreated} = subscriptionData.data;
+        if (contractCreated.contract) {
+          setSubscription(contractCreated.contract);
         }
       },
     });
@@ -89,4 +95,4 @@ const EventList = ({refetch, data, subscribeToMore, children}) => {
         data: list,
       });
 };
-export default EventListQuery;
+export default ContractListQuery;

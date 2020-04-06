@@ -12,6 +12,44 @@ export const GET_ME = gql`
 `;
 
 /* ----------------------- */
+// Contract : Query
+/* ----------------------- */
+export const GET_CONTRACT = gql`
+  query($address: ID!) {
+    contract(address: $address) {
+      address
+      name
+      abi
+      event_topics
+    }
+  }
+`;
+
+export const GET_CONTRACT_LIST = gql`
+  query($limit: Int) {
+    contractList(limit: $limit) {
+      address
+      name
+      abi
+      event_topics
+    }
+  }
+`;
+
+export const CONTRACT_CREATED = gql`
+  subscription {
+    contractCreated {
+      contract {
+        address
+        name
+        abi
+        event_topics
+      }
+    }
+  }
+`;
+
+/* ----------------------- */
 // Event : Query
 /* ----------------------- */
 export const GET_EVENT = gql`
@@ -25,14 +63,15 @@ export const GET_EVENT = gql`
 `;
 
 export const GET_EVENT_LIST = gql`
-  query($limit: Int) {
-    eventList(limit: $limit) {
+  query($limit: Int, $filters: EventFilters) {
+    eventList(limit: $limit, filters: $filters) {
       transaction_hash
       event_topic_hash
       contract_address
       event_abi
       raw_event
       json_event
+      createdAt
     }
   }
 `;

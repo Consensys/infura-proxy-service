@@ -1,19 +1,26 @@
 /* --- Global --- */
-import {Table} from '@horizin/molecules';
+import {TableAdvanced} from '@horizin/molecules';
 import {shortenAddress, shortenHash} from '@src/utilities';
 /* --- Local --- */
-// transaction_hash: "0xeff09f8e6ef9fc6ab1020e7499ec6b282a30a7616e3fedcc8b070018e83f5c10"
-// event_topic_hash: "0xce0457fe73731f824cc272376169235128c118b49d344817417c6d108d155e82"
-// contract_address: "0x00
+import {EventTokenTransfer, EpochToRelativeDate} from '@components';
+
 /* --- Component --- */
-const TransactionTable = ({data}) => {
+const TransactionTable = ({data, sx}) => {
   const columns = React.useMemo(
     () => [
       {
         Header: 'Core',
         columns: [
           {
-            Header: 'Tx Hash',
+            Header: 'Event',
+            accessor: d => (
+              <Atom.Span>
+                <EventTokenTransfer data={JSON.parse(d.json_event)} />
+              </Atom.Span>
+            ),
+          },
+          {
+            Header: 'Transaction Hash',
             accessor: d => shortenHash(d.transaction_hash, 10),
           },
           {
@@ -29,17 +36,14 @@ const TransactionTable = ({data}) => {
       {
         Header: 'Exta',
         columns: [
+          // {
+          //   Header: 'JSON Event',
+          //   accessor: d => JSON.stringify(d.json_event),
+          // },
           {
-            Header: 'EventABI',
-            accessor: d => JSON.stringify(d.event_abi),
-          },
-          {
-            Header: 'JSON Event',
-            accessor: d => JSON.stringify(d.json_event),
-          },
-          {
-            Header: 'Timestamp',
-            accessor: 'timestamp',
+            Header: 'Created',
+            // accessor: 'createdAt',
+            accessor: d => <EpochToRelativeDate epoch={d.createdAt} />,
           },
         ],
       },
@@ -49,7 +53,37 @@ const TransactionTable = ({data}) => {
 
   return (
     <>
-      <Table columns={columns} data={data} />
+      <TableAdvanced
+        columns={columns}
+        data={data}
+        sx={{
+          border: '1px solid',
+          borderColor: 'gray',
+          width: '100%',
+          ...sx,
+        }}
+        sxHeader={{
+          borderBottom: '2px solid ',
+          borderBottomColor: 'gray',
+          color: 'charcoal',
+          py: 3,
+        }}
+        sxCell={{
+          borderRight: '1px solid',
+          borderRightColor: 'gray',
+          p: 3,
+        }}
+        sxRow={{
+          borderBottom: '1px solid ',
+          borderBottomColor: 'gray',
+          '&:hover': {
+            bg: 'smoke',
+          },
+        }}
+        sxPagination={{
+          mt: 3,
+        }}
+      />
     </>
   );
 };
