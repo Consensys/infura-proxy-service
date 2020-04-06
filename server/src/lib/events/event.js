@@ -2,11 +2,8 @@ import { ethers } from 'ethers';
 
 import models from '@models';
 
-const FROM_BLOCK = process.env.EVENT_FROM_BLOCK
-  ? parseInt(process.env.EVENT_FROM_BLOCK)
-  : 0;
 
-export const initEvent = async (contract, ename) => {
+export const initEvent = async (contract, ename, fromBlock) => {
   console.log('Initializing specific event: ' + ename);
 
   // create meta object
@@ -20,7 +17,7 @@ export const initEvent = async (contract, ename) => {
   };
   models.EventMeta.create(metaEventObject);
   // filter for events
-  let eventArray = await contract.queryFilter(ename, FROM_BLOCK);
+  let eventArray = await contract.queryFilter(ename, fromBlock);
   for (let j = 0; j < eventArray.length; j++) {
     const event = eventArray[j];
     await processAndStoreEvent(contract, event);

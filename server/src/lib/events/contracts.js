@@ -3,11 +3,10 @@ import { createEventListener } from './listener';
 import { initEvent } from './event';
 import models from '@models';
 
-export const initContractEvents = async (provider, contractData) => {
+export const initNewContract = async (provider, contractData, fromBlock) => {
   console.log('Initializing Contract...');
 
 
-  console.log("contract added to db" + contractData.name)
   let contract = await parseJSONToContract(provider, contractData);
   let contractEvents = Object.keys(contract.interface.events);
 
@@ -15,16 +14,33 @@ export const initContractEvents = async (provider, contractData) => {
 
   // first add contract to db (address is primary key, bounces are fine)
   contractData['event_topics'] = eventSignatures
-  models.Contract.create(contractData)
+  try {
+    let c = await models.Contract.create(contractData)
+    console.log("contract added to db" + contractData.name)
+    console.log(c)
 
+    await initContractEvents(provider, contractData, fromBlock)
+  
+  } catch(err) {
+    console.log("Possible Duplicate?")
+    // console.log(err)
+  }
+
+};
+
+
+export const initContractEvents = async (provider, contractData, fromBlock) => {
+  let contract = await parseJSONToContract(provider, contractData);
+  let contractEvents = Object.keys(contract.interface.events);
 
   try {
     for (let i = 0; i < contractEvents.length; i++) {
       const eventName = contractEvents[i];
 
       // initialize event type
-      await initEvent(contract, eventName);
+      await initEvent(contract, eventName, fromBlock);
 
+      
       //KICK OFF EVENT LISTENER HERE
       let eventABI = contract.interface.events[eventName];
       console.log('kicking off event listener for ' + eventName);
@@ -33,7 +49,8 @@ export const initContractEvents = async (provider, contractData) => {
   } catch (err) {
     console.error(err);
   }
-};
+}
+
 
 const parseJSONToContract = (provider, contractData) => {
   const contract = new ethers.Contract(
@@ -43,3 +60,4 @@ const parseJSONToContract = (provider, contractData) => {
   );
   return contract;
 };
+
