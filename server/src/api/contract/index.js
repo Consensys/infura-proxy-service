@@ -5,9 +5,8 @@ export const newContract = async (req, res) => {
     const provider = req.app.get('provider');
 
     await initContractEvents(provider, req.contract);
-    res.send({ ok: 'good' });
+    res.send({ ok: 'good' }); //TODO
 };
-
 
 export const listContracts = async (req, res) => {
     let data;
@@ -20,7 +19,6 @@ export const listContracts = async (req, res) => {
         return res.send(error);
     }
 };
-
 
 import truffle from './validation/truffle';
 import raw from './validation/raw';

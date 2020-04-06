@@ -12,7 +12,7 @@ import http from 'http';
 /* --- Server : Configuration --- */
 import { initServer } from '@database/apollo';
 import { initSequalize } from '@database/sequelize';
-import { initContracts } from '@events';
+import { initAllContracts } from '@events';
 
 import { setupInufraProvider } from '@config';
 
@@ -68,7 +68,7 @@ const main = async () => {
 
   /* --- Contracts Config --- */
   if (Number(FEAUTRE_ROUTE_CONTRACTS))
-    await initContracts(process.env.CONTRACT_DIR, provider);
+    await initAllContracts(process.env.CONTRACT_DIR, provider);
 
   // await initEvents(provider)
 };
