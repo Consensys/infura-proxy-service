@@ -107,16 +107,16 @@ const Main = props => {
           sx={{fontSize: [3, 3, 4], textAlign: 'center', my: 3, mt: 5}}>
           Contracts
         </Atom.Heading> */}
-        <ContractListQuery>
+        {/* <ContractListQuery>
           <ContractTable />
-        </ContractListQuery>
+        </ContractListQuery> */}
         {/* <Atom.Heading
           sx={{fontSize: [3, 3, 4], textAlign: 'center', my: 3, mt: 5}}>
           Contract Events
         </Atom.Heading> */}
-        <EventMetaListQuery>
+        {/* <EventMetaListQuery>
           <EventMetaListTable sx={{mt: 4}} />
-        </EventMetaListQuery>
+        </EventMetaListQuery> */}
 
         <EventListQuery
           // transactionHash="0x8c56844e354a4d58ff3684bf7c5a33bc51b0bf16f1beb3cc4d9a294c852a8e0a"

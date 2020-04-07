@@ -25,7 +25,7 @@ export const initNewContract = async (
     await initContractEvents(provider, contractData, fromBlock);
   } catch (err) {
     console.log('Possible Duplicate?');
-    // console.log(err)
+    console.log(err);
   }
 };
 

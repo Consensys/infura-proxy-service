@@ -83,6 +83,9 @@ export const EVENT_CREATED = gql`
         transaction_hash
         event_topic_hash
         contract_address
+        event_abi
+        raw_event
+        json_event
       }
     }
   }

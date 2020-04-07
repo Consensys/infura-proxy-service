@@ -3,10 +3,19 @@
 /* --- Local --- */
 import pubsub, { EVENTS } from '@subscription';
 
-const generateFilter = (filters) => {
-  let where = {};
-  Object.keys(filters).forEach((k) => (where[k] = filters[k]));
-  return where;
+const convertEvent = (event) => {
+  Object.keys(event.dataValues).forEach((key) => {
+    if (
+      key == 'event_abi' ||
+      key == 'json_event' ||
+      key == 'raw_event'
+    ) {
+      event[key] = JSON.stringify(event[key]);
+    } else {
+      event[key] = event[key];
+    }
+  });
+  return event;
 };
 
 /* --- Event : Resolver --- */

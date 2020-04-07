@@ -18,7 +18,7 @@ const EventListQuery = ({
       <Query
         query={GET_EVENT_LIST}
         variables={{
-          limit: 15,
+          limit: 105,
           filters: {
             contract_address: contractAddress,
             event_topic_hash: eventTopicHash,
@@ -77,6 +77,7 @@ const EventList = ({refetch, data, subscribeToMore, children}) => {
         }
         const {eventCreated} = subscriptionData.data;
         if (eventCreated.event) {
+          console.log(eventCreated.event, 'eventCreated.event');
           setSubscription(eventCreated.event);
         }
       },

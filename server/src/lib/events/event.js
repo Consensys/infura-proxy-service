@@ -1,7 +1,24 @@
+/* --- Global --- */
 import { ethers } from 'ethers';
 
+/* --- Local --- */
+import pubsub, { EVENTS } from '@subscription';
 import models from '@models';
 
+const convertEvent = (event) => {
+  Object.keys(event).forEach((key) => {
+    if (
+      key == 'event_abi' ||
+      key == 'json_event' ||
+      key == 'raw_event'
+    ) {
+      event[key] = JSON.stringify(event[key]);
+    } else {
+      event[key] = event[key];
+    }
+  });
+  return event;
+};
 
 export const initEvent = async (contract, ename, fromBlock) => {
   console.log('Initializing specific event: ' + ename);
@@ -36,18 +53,23 @@ export const processAndStoreEvent = async (contract, eventLog) => {
   let storeObject = {
     transaction_hash: eventLog.transactionHash,
     contract_address: contract.address,
+    event_topic_hash: eventLog.topics[0],
     event_abi: eventABI,
     raw_event: rawEvent,
     json_event: jsonEvent,
-    event_topic_hash: eventLog.topics[0],
   };
+
   console.log('storing new event ' + eventLog.event);
   models.Event.create(storeObject);
+  // const simple = convertEvent(storeObject);
+  // pubsub.publish(EVENTS.EVENT.CREATED, {
+  //   eventCreated: { event: simple },
+  // });
 };
 
 const normalizeEvent = (e, inputs) => {
   let o = {};
-  inputs.forEach(input => {
+  inputs.forEach((input) => {
     o[input.name] = e[input.name];
   });
   return o;
