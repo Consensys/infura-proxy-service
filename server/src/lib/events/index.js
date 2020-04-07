@@ -48,10 +48,8 @@ export const initFromDB = async (provider) => {
   let fromBlock = getLatestBlockNumberFromEvents(provider) || FROM_BLOCK
   let contractsInDB = await models.Contract.findAll({})
 
-  console.log(contractsInDB)
   for (let i = 0; i < contractsInDB.length; i++) {
     const c = contractsInDB[i];
-
     //only calls to init events (does not re-add to DB)
     await initContractEvents(provider, c, fromBlock);
   }

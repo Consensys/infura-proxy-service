@@ -1,10 +1,15 @@
-import { initContractEvents } from '@events/contracts';
+import { initNewContract } from '@events/contracts';
 import models from '@models';
 
 export const newContract = async (req, res) => {
     const provider = req.app.get('provider');
 
-    await initContractEvents(provider, req.contract);
+    const FROM_BLOCK = process.env.EVENT_FROM_BLOCK
+        ? parseInt(process.env.EVENT_FROM_BLOCK)
+        : 0;
+
+    //TODO add fromBlock parser
+    await initNewContract(provider, req.contract, FROM_BLOCK);
     res.send({ ok: 'good' }); //TODO
 };
 
