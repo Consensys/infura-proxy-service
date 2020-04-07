@@ -1,10 +1,14 @@
 /* --- Global --- */
 import { ethers } from 'ethers';
-import { createEventListener } from './listener'
-import { parseJSONToContract } from './utils'
+import { createEventListener } from './listener';
+import { parseJSONToContract } from './utils';
 import models from '@models';
 
-export const initContractEvents = async (provider, contractData, fromBlock) => {
+export const initContractEvents = async (
+  provider,
+  contractData,
+  fromBlock
+) => {
   let contract = await parseJSONToContract(provider, contractData);
   let contractEvents = Object.keys(contract.interface.events);
 
@@ -15,7 +19,6 @@ export const initContractEvents = async (provider, contractData, fromBlock) => {
       // initialize event type
       await initEvent(contract, eventName, fromBlock);
 
-
       //KICK OFF EVENT LISTENER HERE
       let eventABI = contract.interface.events[eventName];
       console.log('kicking off event listener for ' + eventName);
@@ -24,8 +27,7 @@ export const initContractEvents = async (provider, contractData, fromBlock) => {
   } catch (err) {
     console.error(err);
   }
-}
-
+};
 
 const initEvent = async (contract, ename, fromBlock) => {
   console.log('Initializing specific event: ' + ename);
@@ -42,10 +44,10 @@ const initEvent = async (contract, ename, fromBlock) => {
 
   try {
     await models.EventMeta.create(metaEventObject);
-  } catch(err) {
+  } catch (err) {
     // Ignore unique constraint DB bounces on event meta table
-    if (err.name !== "SequelizeUniqueConstraintError") {
-      throw err
+    if (err.name !== 'SequelizeUniqueConstraintError') {
+      throw err;
     }
   }
 
@@ -76,16 +78,7 @@ export const processAndStoreEvent = async (contract, eventLog) => {
   };
 
   console.log('storing new event ' + eventLog.event);
-<<<<<<< HEAD
-  models.Event.create(storeObject);
-  // const simple = convertEvent(storeObject);
-  // pubsub.publish(EVENTS.EVENT.CREATED, {
-  //   eventCreated: { event: simple },
-  // });
-=======
   await models.Event.create(storeObject);
-
->>>>>>> joe-dev
 };
 
 const normalizeEvent = (e, inputs) => {
