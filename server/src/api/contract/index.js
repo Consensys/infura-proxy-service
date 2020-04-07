@@ -18,9 +18,9 @@ export const newContract = async (req, res) => {
     }
 
     req.contract['event_topics'] = await contractDataToEventTopics(provider, req.contract)
-
+    let contract
     try {
-        await models.Contract.create(req.contract)
+        contract = await models.Contract.create(req.contract)
         await initContractEvents(provider, req.contract, fromBlock);
 
     } catch (err) {
@@ -32,7 +32,7 @@ export const newContract = async (req, res) => {
     }
 
 
-    res.send({ ok: 'good' }); //TODO
+    res.send({ contract });
 };
 
 export const listContracts = async (req, res) => {
