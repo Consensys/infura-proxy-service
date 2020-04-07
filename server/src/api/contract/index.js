@@ -1,15 +1,37 @@
-import { initNewContract } from '@events/contracts';
+import { initContractEvents } from '@events/event';
+import {  contractDataToEventTopics } from '@events/utils'
+
 import models from '@models';
 
 export const newContract = async (req, res) => {
     const provider = req.app.get('provider');
 
-    const FROM_BLOCK = process.env.EVENT_FROM_BLOCK
-        ? parseInt(process.env.EVENT_FROM_BLOCK)
-        : 0;
+    let body = req.body;
+
 
     //TODO add fromBlock parser
-    await initNewContract(provider, req.contract, FROM_BLOCK);
+    let fromBlock = body.fromBlock
+    if (!fromBlock) {
+        fromBlock = process.env.EVENT_FROM_BLOCK
+        ? parseInt(process.env.EVENT_FROM_BLOCK)
+        : 0;
+    }
+
+    req.contract['event_topics'] = await contractDataToEventTopics(provider, req.contract)
+
+    try {
+        await models.Contract.create(req.contract)
+        await initContractEvents(provider, req.contract, fromBlock);
+
+    } catch (err) {
+        if (err.name === "SequelizeUniqueConstraintError") {
+            res.status(418).send("Duplicate!")
+        } else {
+            res.status(500).send(err)
+        }
+    }
+
+
     res.send({ ok: 'good' }); //TODO
 };
 
@@ -21,7 +43,7 @@ export const listContracts = async (req, res) => {
         return res.send({ function: 'listContracts', data });
     } catch (error) {
         console.log(error);
-        return res.send(error);
+        return res.status(500).send(error);
     }
 };
 
