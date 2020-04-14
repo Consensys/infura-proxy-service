@@ -23,7 +23,7 @@ import {
   initCoreRoutes,
   initCacheRoutes,
   initEventRoutes,
-  initContractRoutes
+  initContractRoutes,
 } from './routes';
 
 const provider = setupInufraProvider();
@@ -34,7 +34,7 @@ const app = express();
 const httpServer = http.createServer(app);
 app.use(cors());
 app.use(morgan('dev'));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 // Set Request Constants
 app.set('provider', provider);
@@ -65,7 +65,6 @@ const main = async () => {
   initEventRoutes(app);
   initContractRoutes(app);
 
-
   /* --- Contracts Config --- */
   if (Number(FEAUTRE_ROUTE_CONTRACTS))
     await initAllContracts(process.env.CONTRACT_DIR, provider);
@@ -78,4 +77,9 @@ const listen = async () => {
 };
 
 main();
+
 listen();
+process.on('SIGINT', () => {
+  console.log('Bye bye!');
+  process.exit();
+});

@@ -40,7 +40,7 @@
     "mocha": "^5.2.0",
     "module-alias": "^2.2.2",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.7"
+    "nodemon": "^2.0.3"
   },
   "dependencies": {
     "@octokit/rest": "^17.0.0",

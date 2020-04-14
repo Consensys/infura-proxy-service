@@ -3,6 +3,7 @@ import { ethers } from 'ethers';
 import { createEventListener } from './listener';
 import { parseJSONToContract } from './utils';
 import models from '@models';
+import pubsub, { EVENTS } from '@subscription';
 
 export const initContractEvents = async (
   provider,
@@ -79,6 +80,9 @@ export const processAndStoreEvent = async (contract, eventLog) => {
 
   console.log('storing new event ' + eventLog.event);
   await models.Event.create(storeObject);
+  // pubsub.publish(EVENTS.EVENT.CREATED, {
+  //   eventCreated: { event: data },
+  // });
 };
 
 const normalizeEvent = (e, inputs) => {
