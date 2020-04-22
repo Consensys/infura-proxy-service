@@ -10,6 +10,10 @@ run(){
   docker-compose up -d
 }
 
+run_dev(){
+  docker-compose -f docker-compose.dev.yml down
+  docker-compose -f docker-compose.dev.yml up
+}
 
 
 check_dependencies_and_run(){
@@ -32,13 +36,6 @@ check_dependencies_build_and_run(){
   build
   run
 }
-
-# run_dev(){
-#   docker-compose down
-#   docker-compose up db &
-  # cd app
-  # npm run test:run-server
-# }
 
 if [ $1 == "build" ]; then
   check_dependencies_build_and_run
