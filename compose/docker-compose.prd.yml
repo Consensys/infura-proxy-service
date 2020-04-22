@@ -6,14 +6,14 @@ services:
     build: ./frontend
     volumes:
       - static-content:/usr/src/app/build
-  server: # Backend Application
-    build: ./server
-    environment:
-      - DATABASE_HOST=postgres
-    ports:
-      - "3131:3131"
+  # server: # Backend Application
+  #   build: ./server
+  #   environment:
+  #     - DATABASE_HOST=postgres
+  #   ports:
+  #     - "3131:3131"
 
-  #--- Backend Infrastructure --- #
+  # --- Backend Infrastructure --- #
   nginx: # Nginx
     build: ./config/nginx
     links:

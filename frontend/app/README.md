@@ -1,1 +1,0 @@
-# Infura Proxy Service Frontend

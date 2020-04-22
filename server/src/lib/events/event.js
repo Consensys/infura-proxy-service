@@ -4,6 +4,7 @@ import { createEventListener } from './listener';
 import { parseJSONToContract } from './utils';
 import models from '@models';
 import pubsub, { EVENTS } from '@subscription';
+import { eventToQuery } from '@helpers';
 
 export const initContractEvents = async (
   provider,
@@ -78,11 +79,15 @@ export const processAndStoreEvent = async (contract, eventLog) => {
     json_event: jsonEvent,
   };
 
+  // if(if)
+  // const data = eventToQuery(storeObject);
+  // console.log(data, 'data');
+
   console.log('storing new event ' + eventLog.event);
   await models.Event.create(storeObject);
-  // pubsub.publish(EVENTS.EVENT.CREATED, {
-  //   eventCreated: { event: data },
-  // });
+  pubsub.publish(EVENTS.EVENT.CREATED, {
+    eventCreated: { event: eventToQuery(storeObject) },
+  });
 };
 
 const normalizeEvent = (e, inputs) => {

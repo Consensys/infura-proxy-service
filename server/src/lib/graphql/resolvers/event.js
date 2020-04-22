@@ -27,7 +27,6 @@ export default {
       { models }
     ) => {
       let parsed;
-      console.log(filters, 'filters');
       const events = await models.Event.findAll({
         limit: limit || 30,
         where: filters,

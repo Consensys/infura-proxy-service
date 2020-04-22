@@ -1,1 +1,0 @@
-export {searchRequest} from './searchRequest';

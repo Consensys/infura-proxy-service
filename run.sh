@@ -10,6 +10,8 @@ run(){
   docker-compose up -d
 }
 
+
+
 check_dependencies_and_run(){
   command -v docker >/dev/null 2>&1 || {
     echo >&2 "You need to install Docker first"; return 0;
@@ -31,12 +33,12 @@ check_dependencies_build_and_run(){
   run
 }
 
-run_dev(){
-  docker-compose down
-  docker-compose up db &
-  cd app
-  npm run test:run-server
-}
+# run_dev(){
+#   docker-compose down
+#   docker-compose up db &
+  # cd app
+  # npm run test:run-server
+# }
 
 if [ $1 == "build" ]; then
   check_dependencies_build_and_run

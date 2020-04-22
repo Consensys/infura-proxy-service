@@ -1,11 +1,9 @@
 FROM node:latest
 
-RUN mkdir -p /usr/src/frontend
-WORKDIR /usr/src/frontend
-COPY . /usr/src/frontend
-RUN npm install -g yarn
-RUN yarn
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY . /usr/src/app
+RUN npm install
+RUN npm run build
+RUN ls -la
 
-EXPOSE 3131
-
-CMD ["npm", "run", "start"]

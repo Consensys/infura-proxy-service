@@ -19,6 +19,7 @@
     "@root": ".",
     "@api": "src/api",
     "@lib": "src/lib",
+    "@helpers": "src/lib/helpers",
     "@database": "./src/lib/database",
     "@errors": "./src/lib/errors",
     "@config": "./src/config",

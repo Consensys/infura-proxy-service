@@ -1,58 +1,54 @@
 {
-  "name": "decentralized-application",
-  "desription": "prototype decentralized applications",
+  "name": "ips-frontend",
+  "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "build": "lerna run build",
-    "clean": "lerna clean",
-    "deploy": " lerna run deploy",
-    "watch": "lerna run --parallel watch",
-    "start": "lerna run start"
-  },
-  "workspaces": {
-    "package-entry": "main",
-    "packages": [
-      "app",
-      "packages/*",
-      "packages/ethers-react/packages/*",
-      "packages/horizin/*"
-    ],
-    "nohoist": [
-      "**/webpack-dev-server",
-      "**/webpack-cli",
-      "**/babel-loader",
-      "**/babel-jest",
-      "**/cross-env"
-    ]
-  },
-  "devDependencies": {
-    "babel-loader-lerna-cra": "^0.1.3",
-    "jest-prop-type-error": "^1.1.0",
-    "lerna": "^3.10.7",
-    "prettier": "^1.16.1"
-  },
   "dependencies": {
-    "babel-eslint": "10.0.1",
-    "eslint": "5.16.0",
-    "eslint-config-prettier": "^4.2.0",
-    "eslint-config-react-app": "^4.0.0",
-    "eslint-config-xo": "^0.26.0",
-    "eslint-config-xo-react": "^0.19.0",
-    "eslint-plugin-flowtype": "^3.6.1",
-    "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-prettier": "^3.0.1",
-    "eslint-plugin-react": "^7.12.4",
-    "eslint-plugin-react-hooks": "^1.6.0"
+    "@material-ui/core": "^4.9.10",
+    "@material-ui/lab": "^4.0.0-alpha.49",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "apollo-cache-inmemory": "^1.3.7",
+    "apollo-client": "^2.4.4",
+    "apollo-link": "^1.2.3",
+    "apollo-link-error": "^1.1.1",
+    "apollo-link-http": "^1.5.5",
+    "apollo-link-ws": "^1.0.9",
+    "apollo-utilities": "^1.0.24",
+    "axios": "^0.19.2",
+    "ethers": "^4.0.46",
+    "graphql": "^14.0.2",
+    "graphql-tag": "^2.10.0",
+    "idx": "^2.5.6",
+    "luxon": "^1.22.0",
+    "react": "^16.13.1",
+    "react-apollo": "^3.1.4",
+    "react-dom": "^16.13.1",
+    "react-hook-form": "^5.4.1",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "react-table": "^7.0.4",
+    "subscriptions-transport-ws": "^0.9.16"
   },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}",
-      "!src/setupTests.{js,jsx}",
-      "!src/index.{js,jsx}",
-      "!src/serviceWorker.{js,jsx}",
-      "!src/**/*.(spec|test|stories).{js,jsx}"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   }
 }
