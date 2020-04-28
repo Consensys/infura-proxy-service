@@ -49,6 +49,8 @@ _Runs all the containers_
 $ bash run.sh run
 ```
 
+**Note: Example .env file located at "./server/.env.sample**
+
 ### Run Dev Server
 
 #### _Runs the database container and one app instance_
